@@ -1,0 +1,68 @@
+.container-darshboard-layout {
+  container-type: inline-size;
+  container-name: container-darshboard;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
+  height: 100vh;
+  background-color: #e0e0e0;
+
+  & .container-dashboard-grid {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    border-right: 1px solid #e0e0e0;
+    background-color: #ffffff;
+    flex-grow: 1;
+
+    & .dashboard-content {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      width: 100%;
+      flex: 1;
+    }
+
+  }
+
+
+
+  @container container-darshboard (min-width: 1536px) {
+    .container-dashboard-grid {
+      width: 1536px;
+      margin-left: auto;
+      margin-right: auto;
+
+    }
+  }
+
+  @container container-darshboard (min-width: 640px) {
+    .sidebar-container {
+      display: none;
+    }
+
+    .floating-menu {
+      display: inline-flex;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+    }
+
+
+
+
+  }
+
+  @container container-darshboard (min-width: 1024px) {
+    .sidebar-container {
+      display: flex;
+    }
+
+    .floating-menu {
+      display: none;
+      visibility: hidden;
+    }
+  }
+}
