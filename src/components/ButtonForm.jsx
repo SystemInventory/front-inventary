@@ -61,7 +61,7 @@ export const ButtonForm = ({editData,setEditData}) => {
             <Plus /> Añadir Personal
           </Button>
         </DialogTrigger>
-        <DialogContent className="border border-red-700">
+        <DialogContent>
           <DialogHeader>
             <DialogTitle>{editData ? "Editar Personal" : "Agregar Nuevo Personal"}</DialogTitle>
           </DialogHeader>
