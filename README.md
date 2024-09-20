@@ -1,4 +1,5 @@
 # Sistema de Inventario de Farmacia
+
 ### 🌐 Frontend:
 
   <div style="display: flex; justify-content: start;">
@@ -9,4 +10,4 @@
 <img src='./public/ShadcnUI.svg' style="width: 50px; height: 50px; margin: 10px;">
 <img src='./public/zustand.png' style="width: 50px; height: 50px; margin: 10px;">
 
-  </div>    
+  </div>
