@@ -10,7 +10,7 @@ export const FloatingMenu = () => {
     }`;
 
   return (
-    <div className="h-screen bg-gray-100 shadow-lg flex flex-col gap-4 border-r border-gray-200 p-4 md:w-48 lg:w-52 transition-colors duration-300">
+    <div className="h-full bg-gray-100 shadow-lg flex flex-col gap-4 border-r border-gray-200 p-4 md:w-48 lg:w-52 transition-colors duration-300">
       <Link to="/home" className={linkClasses("/home")}>
         <House className="sm:hidden" size={35} />
         <House className="hidden sm:block" />
