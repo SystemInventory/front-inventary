@@ -9,13 +9,12 @@ import {
   DialogTitle,
   DialogTrigger,
   Button,
-  Input,
-  Label,
 } from "@/components/ui";
 
 import { Plus } from "lucide-react";
 import { schema } from "@/lib/zod-validations/dataFormSchema";
 import { usePersonnel } from "@/hooks/usePersonnel";
+import FormField from "./FormField";
 
 export const ButtonForm = ({ editData, setEditData }) => {
   const { addPersonal, editPersonal } = usePersonnel();
@@ -32,10 +31,10 @@ export const ButtonForm = ({ editData, setEditData }) => {
   });
   useEffect(() => {
     if (editData) {
-      setValue("invoice", editData.invoice);
-      setValue("paymentStatus", editData.paymentStatus);
-      setValue("totalAmount", editData.totalAmount);
-      setValue("paymentMethod", editData.paymentMethod);
+      setValue("name", editData.name);
+      setValue("dni", editData.dni);
+      setValue("email", editData.email);
+      setValue("phone", editData.phone);
       setIsDialogOpen(true);
     }
   }, [editData, setValue]);
@@ -68,59 +67,34 @@ export const ButtonForm = ({ editData, setEditData }) => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid grid-cols-2 gap-10 py-4">
               <div className="flex flex-col gap-4">
-                <div className="grid grid-cols-4 items-center gap-16">
-                  <Label htmlFor="invoice" className="text-right">
-                    Nombre
-                  </Label>
-                  <Input
-                    id="invoice"
-                    {...register("invoice")}
-                    className="col-span-3"
-                  />
-                  {errors.invoice && <p>{errors.invoice.message}</p>}
-                </div>
-
-                <div className="grid grid-cols-4 items-center gap-16">
-                  <Label htmlFor="paymentStatus" className="text-right">
-                    DNI
-                  </Label>
-                  <Input
-                    id="paymentStatus"
-                    {...register("paymentStatus")}
-                    className="col-span-3"
-                  />
-                  {errors.paymentStatus && (
-                    <p>{errors.paymentStatus.message}</p>
-                  )}
-                </div>
+                <FormField
+                  id="name"
+                  label="Name"
+                  register={register}
+                  errors={errors}
+                />
+                <FormField
+                  id="dni"
+                  label="DNI"
+                  register={register}
+                  errors={errors}
+                />
               </div>
 
               <div className="flex flex-col gap-4">
-                <div className="grid grid-cols-4 items-center gap-16">
-                  <Label htmlFor="totalAmount" className="text-right">
-                    Correo
-                  </Label>
-                  <Input
-                    id="totalAmount"
-                    {...register("totalAmount")}
-                    className="col-span-3"
-                  />
-                  {errors.totalAmount && <p>{errors.totalAmount.message}</p>}
-                </div>
+                <FormField
+                  id="email"
+                  label="Correo"
+                  register={register}
+                  errors={errors}
+                />
 
-                <div className="grid grid-cols-4 items-center gap-16">
-                  <Label htmlFor="paymentMethod" className="text-right">
-                    Telefono
-                  </Label>
-                  <Input
-                    id="paymentMethod"
-                    {...register("paymentMethod")}
-                    className="col-span-3"
-                  />
-                  {errors.paymentMethod && (
-                    <p>{errors.paymentMethod.message}</p>
-                  )}
-                </div>
+                <FormField
+                  id="phone"
+                  label="Telefono"
+                  register={register}
+                  errors={errors}
+                />
               </div>
             </div>
             <DialogFooter>

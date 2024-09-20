@@ -27,10 +27,10 @@ export const TableInformation = ({ personal, setEditData }) => {
         <TableBody className="bg-white divide-y divide-gray-200">
           {personal.map((person) => (
             <TableRow key={person.id}>
-              <TableCell className="font-medium">{person.invoice}</TableCell>
-              <TableCell className="text-left">{person.paymentStatus}</TableCell>
-              <TableCell>{person.totalAmount}</TableCell>
-              <TableCell>{person.paymentMethod}</TableCell>
+              <TableCell className="font-medium">{person.name}</TableCell>
+              <TableCell className="text-left">{person.dni}</TableCell>
+              <TableCell>{person.email}</TableCell>
+              <TableCell>{person.phone}</TableCell>
               <TableCell className="text-center">
                 <Button className="" variant="outline" onClick={() => setEditData(person)}>
                   <SquarePen />

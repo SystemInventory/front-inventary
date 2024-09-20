@@ -1,9 +1,7 @@
-import {
-  TableSkeleton,
-  ButtonSupplierForm,
-  SuppliersTable,
-  Input,
-} from "@/components/ui";
+import { ButtonSupplierForm } from "@/components/ButtonSupplierForm";
+import { SuppliersTable } from "@/components/SuppliersTable";
+import { TableSkeleton } from "@/components/TableSkeleton";
+import { Input } from "@/components/ui";
 import { useSupplier } from "@/hooks/useSupplier";
 import { useEffect, useState } from "react";
 

@@ -22,7 +22,7 @@ export const PersonnelPage = () => {
   };
 
   const filteredPersonal = personal.filter((person) =>
-    person.invoice?.toLowerCase().includes(searchTerm.toLowerCase())
+    person.name?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
