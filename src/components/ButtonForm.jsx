@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import {
   Dialog,
   DialogContent,
@@ -42,6 +41,7 @@ export const ButtonForm = ({editData,setEditData}) => {
       setIsDialogOpen(true);
     }
   }, [editData, setValue]);
+
   const onSubmit = (data) => {
     if (editData) {
       editPersonal({ ...data, id: editData.id });
