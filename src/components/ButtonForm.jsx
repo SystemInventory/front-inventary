@@ -8,19 +8,17 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+  Button,
+  Input,
+  Label,
+} from "@/components/ui";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Plus } from "lucide-react";
-import { usePersonnelStore } from "@/stores/usePersonnelStore";
 import { schema } from "@/lib/zod-validations/dataFormSchema";
+import { usePersonnel } from "@/hooks/usePersonnel";
 
-
-export const ButtonForm = ({editData,setEditData}) => {
-  const addPersonal = usePersonnelStore((state) => state.addPersonal);
-  const editPersonal = usePersonnelStore((state) => state.editPersonal)
+export const ButtonForm = ({ editData, setEditData }) => {
+  const { addPersonal, editPersonal } = usePersonnel();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const {
@@ -63,7 +61,9 @@ export const ButtonForm = ({editData,setEditData}) => {
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>{editData ? "Editar Personal" : "Agregar Nuevo Personal"}</DialogTitle>
+            <DialogTitle>
+              {editData ? "Editar Personal" : "Agregar Nuevo Personal"}
+            </DialogTitle>
           </DialogHeader>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid grid-cols-2 gap-10 py-4">
@@ -89,7 +89,9 @@ export const ButtonForm = ({editData,setEditData}) => {
                     {...register("paymentStatus")}
                     className="col-span-3"
                   />
-                  {errors.paymentStatus && <p>{errors.paymentStatus.message}</p>}
+                  {errors.paymentStatus && (
+                    <p>{errors.paymentStatus.message}</p>
+                  )}
                 </div>
               </div>
 
@@ -115,7 +117,9 @@ export const ButtonForm = ({editData,setEditData}) => {
                     {...register("paymentMethod")}
                     className="col-span-3"
                   />
-                  {errors.paymentMethod && <p>{errors.paymentMethod.message}</p>}
+                  {errors.paymentMethod && (
+                    <p>{errors.paymentMethod.message}</p>
+                  )}
                 </div>
               </div>
             </div>

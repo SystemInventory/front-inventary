@@ -2,11 +2,11 @@ import { ButtonForm } from "@/components/ButtonForm";
 import { TableInformation } from "@/components/TableInformation";
 import { TableSkeleton } from "@/components/TableSkeleton";
 import { Input } from "@/components/ui";
-import { usePersonnelStore } from "@/stores/usePersonnelStore";
+import { usePersonnel } from "@/hooks/usePersonnel";
 import { useEffect, useState } from "react";
 
 export const PersonnelPage = () => {
-  const personal = usePersonnelStore((state) => state.personal);
+  const {personal} = usePersonnel()
   const [isLoading, setIsLoading] = useState(true);
   const [editData, setEditData] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");

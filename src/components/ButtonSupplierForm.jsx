@@ -1,5 +1,4 @@
 import { suppliersFormSchema } from "@/lib/zod-validations/suppliersFormSchema";
-import { useSupplierStore } from "@/stores/useSupplierStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -13,10 +12,10 @@ import {
 } from "@/components/ui/dialog";
 import { Plus } from "lucide-react";
 import { Button, Input, Label } from "./ui";
+import { useSupplier } from "@/hooks/useSupplier";
 
 export const ButtonSupplierForm = ({editData,setEditData}) => {
-  const addSupplier = useSupplierStore((state) => state.addSupplier);
-  const editSupplier = useSupplierStore((state) => state.editSupplier);
+  const {addSupplier,editSupplier} = useSupplier()
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const {
     register,

@@ -8,10 +8,10 @@ import {
   TableHeader,
   TableRow,
 } from "./ui";
-import { usePersonnelStore } from "@/stores/usePersonnelStore";
+import { usePersonnel } from "@/hooks/usePersonnel";
 
 export const TableInformation = ({ personal, setEditData }) => {
-  const deletePersonal = usePersonnelStore((state) => state.deletePersonal);
+  const {deletePersonal} = usePersonnel()
   return (
     <div className="overflow-x-auto">
       <Table className="min-w-full divide-y divide-gray-200">
