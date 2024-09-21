@@ -1,41 +1,21 @@
 import { ButtonForm } from "@/components/ButtonForm";
-import { TableInformation } from "@/components/TableInformation";
-import { TableSkeleton } from "@/components/TableSkeleton";
+import { InputSearch } from "@/components/common/InputSearch";
+import { TableInformation } from "@/components/Tables/TableInformation";
+import { TableSkeleton } from "@/components/common/TableSkeleton";
 import { Input } from "@/components/ui";
-import { usePersonnelStore } from "@/stores/usePersonnelStore";
-import { useEffect, useState } from "react";
+import { usePersonnel } from "@/hooks/usePersonnel";
+import { getFilter } from "@/utils/getFilter";
+import { useState } from "react";
 
 export const PersonnelPage = () => {
-  const personal = usePersonnelStore((state) => state.personal);
-  const [isLoading, setIsLoading] = useState(true);
+  const { personal, isLoading } = usePersonnel();
   const [editData, setEditData] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-  }, []);
-
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
-
-  const filteredPersonal = personal.filter((person) =>
-    person.invoice?.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
+  const { itemFilter } = getFilter(personal, searchTerm);
   return (
     <div className="container mx-auto px-4">
       <div className="flex justify-between text-center">
-        <Input
-          type="text"
-          placeholder="Name"
-          value={searchTerm}
-          onChange={handleSearchChange}
-          className="w-1/4"
-           
-        />
+        <InputSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         <ButtonForm editData={editData} setEditData={setEditData} />
       </div>
 
@@ -43,7 +23,7 @@ export const PersonnelPage = () => {
         <TableSkeleton />
       ) : (
         <TableInformation
-          personal={searchTerm ? filteredPersonal : personal}
+          personal={searchTerm ? itemFilter : personal}
           setEditData={setEditData}
         />
       )}

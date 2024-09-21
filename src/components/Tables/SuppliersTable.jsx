@@ -6,7 +6,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "./ui";
+} from "../ui";
 import { SquarePen, Trash2 } from "lucide-react";
 import { useSupplierStore } from "@/stores/useSupplierStore";
 

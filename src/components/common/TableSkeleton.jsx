@@ -1,4 +1,11 @@
-import { Skeleton, Table, TableBody, TableHead, TableHeader, TableRow } from "./ui";
+import {
+  Skeleton,
+  Table,
+  TableBody,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../ui";
 
 export const TableSkeleton = () => {
   return (
@@ -38,4 +45,4 @@ export const TableSkeleton = () => {
       </Table>
     </div>
   );
-}
+};
