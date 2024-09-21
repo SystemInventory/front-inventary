@@ -9,7 +9,7 @@ import {
 } from "@/components/ui";
 import { Plus } from "lucide-react";
 import { useSupplier } from "@/hooks/useSupplier";
-import { SupplierForm } from "./SupplierForm";
+import { SupplierForm } from "./Forms/SupplierForm";
 import { FormProvider } from "react-hook-form";
 
 export const ButtonSupplierForm = ({ editData, setEditData }) => {

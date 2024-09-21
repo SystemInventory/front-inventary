@@ -9,7 +9,7 @@ import {
 } from "@/components/ui";
 import { Plus } from "lucide-react";
 import { usePersonnel } from "@/hooks/usePersonnel";
-import { PersonalForm } from "./PersonalForm";
+import { PersonalForm } from "./Forms/PersonalForm";
 import { FormProvider } from "react-hook-form";
 
 export const ButtonForm = ({ editData, setEditData }) => {

@@ -1,4 +1,4 @@
-import { Input } from "./ui";
+import { Input } from "../ui";
 
 export const InputSearch = ({ searchTerm, setSearchTerm }) => {
   const handleSearchChange = (e) => {

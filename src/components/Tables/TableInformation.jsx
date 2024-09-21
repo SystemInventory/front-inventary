@@ -7,11 +7,11 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "./ui";
+} from "../ui";
 import { usePersonnel } from "@/hooks/usePersonnel";
 
 export const TableInformation = ({ personal, setEditData }) => {
-  const {deletePersonal} = usePersonnel()
+  const { deletePersonal } = usePersonnel();
   return (
     <div className="overflow-x-auto">
       <Table className="min-w-full divide-y divide-gray-200">
@@ -32,7 +32,11 @@ export const TableInformation = ({ personal, setEditData }) => {
               <TableCell>{person.email}</TableCell>
               <TableCell>{person.phone}</TableCell>
               <TableCell className="text-center">
-                <Button className="" variant="outline" onClick={() => setEditData(person)}>
+                <Button
+                  className=""
+                  variant="outline"
+                  onClick={() => setEditData(person)}
+                >
                   <SquarePen />
                   <span className="hidden sm:inline">Editar</span>
                 </Button>
