@@ -9,6 +9,13 @@ export const usePersonnel = (editData, setEditData) => {
   const addPersonal = usePersonnelStore((state) => state.addPersonal);
   const editPersonal = usePersonnelStore((state) => state.editPersonal);
   const deletePersonal = usePersonnelStore((state) => state.deletePersonal);
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  }, []);
+
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const methods = useForm({
     resolver: zodResolver(schema),
@@ -44,6 +51,6 @@ export const usePersonnel = (editData, setEditData) => {
     isDialogOpen,
     setIsDialogOpen,
     methods,
-    handleSubmit: handleSubmit(onSubmit),
+    handleSubmit: handleSubmit(onSubmit),isLoading
   };
 };
