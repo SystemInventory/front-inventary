@@ -1,7 +1,7 @@
 import { suppliersFormSchema } from "@/lib/zod-validations/suppliersFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import {
   Dialog,
   DialogContent,
@@ -10,23 +10,23 @@ import {
   DialogTitle,
   DialogTrigger,
   Button,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
 } from "@/components/ui";
 import { Plus } from "lucide-react";
 import { useSupplier } from "@/hooks/useSupplier";
-import FormField from "@/components/FormField"; // Importa el componente FormField
 
 export const ButtonSupplierForm = ({ editData, setEditData }) => {
   const { addSupplier, editSupplier } = useSupplier();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const {
-    register,
-    handleSubmit,
-    reset,
-    setValue,
-    formState: { errors },
-  } = useForm({
+
+  const methods = useForm({
     resolver: zodResolver(suppliersFormSchema),
   });
+
+  const { register, handleSubmit, reset, setValue, formState: { errors } } = methods;
 
   useEffect(() => {
     if (editData) {
@@ -67,41 +67,47 @@ export const ButtonSupplierForm = ({ editData, setEditData }) => {
               {editData ? "Editar Proveedor" : "Agregar Nuevo Proveedor"}
             </DialogTitle>
           </DialogHeader>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="grid grid-cols-2 gap-10 py-4">
-              <div className="flex flex-col gap-4">
-                <FormField
-                  id="name"
-                  label="Nombre"
-                  register={register}
-                  errors={errors}
-                />
-                <FormField
-                  id="dni"
-                  label="DNI"
-                  register={register}
-                  errors={errors}
-                />
+          <FormProvider {...methods}>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="grid grid-cols-2 gap-10 py-4">
+                <div className="flex flex-col gap-4">
+                  <FormItem>
+                    <FormLabel htmlFor="name">Nombre</FormLabel>
+                    <FormControl>
+                      <input id="name" {...register("name")} className="input" />
+                    </FormControl>
+                    {errors.name && <FormMessage>{errors.name.message}</FormMessage>}
+                  </FormItem>
+                  <FormItem>
+                    <FormLabel htmlFor="dni">DNI</FormLabel>
+                    <FormControl>
+                      <input id="dni" {...register("dni")} className="input" />
+                    </FormControl>
+                    {errors.dni && <FormMessage>{errors.dni.message}</FormMessage>}
+                  </FormItem>
+                </div>
+                <div className="flex flex-col gap-4">
+                  <FormItem>
+                    <FormLabel htmlFor="email">Correo</FormLabel>
+                    <FormControl>
+                      <input id="email" {...register("email")} className="input" />
+                    </FormControl>
+                    {errors.email && <FormMessage>{errors.email.message}</FormMessage>}
+                  </FormItem>
+                  <FormItem>
+                    <FormLabel htmlFor="phone">Telefono</FormLabel>
+                    <FormControl>
+                      <input id="phone" {...register("phone")} className="input" />
+                    </FormControl>
+                    {errors.phone && <FormMessage>{errors.phone.message}</FormMessage>}
+                  </FormItem>
+                </div>
               </div>
-              <div className="flex flex-col gap-4">
-                <FormField
-                  id="email"
-                  label="Correo"
-                  register={register}
-                  errors={errors}
-                />
-                <FormField
-                  id="phone"
-                  label="Telefono"
-                  register={register}
-                  errors={errors}
-                />
-              </div>
-            </div>
-            <DialogFooter>
-              <Button type="submit">Guardar Cambios</Button>
-            </DialogFooter>
-          </form>
+              <DialogFooter>
+                <Button type="submit">Guardar Cambios</Button>
+              </DialogFooter>
+            </form>
+          </FormProvider>
         </DialogContent>
       </Dialog>
     </div>
