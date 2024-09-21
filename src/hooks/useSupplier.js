@@ -10,6 +10,12 @@ export const useSupplier = (editData, setEditData) => {
   const editSupplier = useSupplierStore((state) => state.editSupplier);
   const deleteSupplier = useSupplierStore((state) => state.deleteSupplier);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  }, []);
   const methods = useForm({
     resolver: zodResolver(suppliersFormSchema),
   });
@@ -35,7 +41,7 @@ export const useSupplier = (editData, setEditData) => {
     reset();
     setIsDialogOpen(false);
   };
-  
+
   return {
     addSupplier,
     editSupplier,
@@ -46,5 +52,6 @@ export const useSupplier = (editData, setEditData) => {
     setIsDialogOpen,
     methods,
     handleSubmit: handleSubmit(onSubmit),
+    isLoading,
   };
 };
