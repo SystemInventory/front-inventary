@@ -1,5 +1,5 @@
 import { DashboardLayout } from "@/layout/DashboardLayout";
-import { PersonnelPage,SuppliersPage,HomePage,KardexPage, ProductsPage } from "@/pages";
+import {PersonnelPage, SuppliersPage, HomePage, KardexPage, ProductsPage, CategoryPage} from "@/pages";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 export const DashboardRoutes = () => {
@@ -12,6 +12,7 @@ export const DashboardRoutes = () => {
         <Route path="suppliers" element={<SuppliersPage />} />
         <Route path="kardex" element={<KardexPage />} />
         <Route path="products" element={<ProductsPage />} />
+        <Route path="categories" element={<CategoryPage />} />
       </Route>
     </Routes>
   );
