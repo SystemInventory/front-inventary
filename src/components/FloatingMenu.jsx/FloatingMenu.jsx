@@ -1,5 +1,5 @@
-import { Link, useLocation } from "react-router-dom";
-import { Boxes, House, PackageSearch, SquareUser, User } from "lucide-react";
+import {Link, useLocation} from "react-router-dom";
+import {Boxes, House, PackageOpen, PackageSearch, SquareUser, User} from "lucide-react";
 
 export const FloatingMenu = () => {
   const location = useLocation();
@@ -10,32 +10,38 @@ export const FloatingMenu = () => {
     }`;
 
   return (
-    <div className="h-full bg-gray-100 shadow-lg flex flex-col gap-4 border-r border-gray-200 p-4 md:w-48 lg:w-52 transition-colors duration-300">
+    <div
+      className="h-full bg-gray-100 shadow-lg flex flex-col gap-4 border-r border-gray-200 p-4 md:w-48 lg:w-52 transition-colors duration-300">
       <Link to="/home" className={linkClasses("/home")}>
-        <House className="sm:hidden" size={25} />
-        <House className="hidden sm:block" />
+        <House className="sm:hidden" size={25}/>
+        <House className="hidden sm:block"/>
         <p className="hidden sm:block">Inicio</p>
       </Link>
       <Link to="/personal" className={linkClasses("/personal")}>
-        <User className="sm:hidden" size={25} />
-        <User className="hidden sm:block" />
+        <User className="sm:hidden" size={25}/>
+        <User className="hidden sm:block"/>
         <p className="hidden sm:block">Personal</p>
       </Link>
       <Link to="/suppliers" className={linkClasses("/suppliers")}>
-        <SquareUser className="sm:hidden" size={25} />
-        <SquareUser className="hidden sm:block" />
+        <SquareUser className="sm:hidden" size={25}/>
+        <SquareUser className="hidden sm:block"/>
         <p className="hidden sm:block">Proveedores</p>
       </Link>
       <Link to="/kardex" className={linkClasses("/kardex")}>
-        <PackageSearch className="sm:hidden" size={25} />
-        <PackageSearch className="hidden sm:block" />
+        <PackageSearch className="sm:hidden" size={25}/>
+        <PackageSearch className="hidden sm:block"/>
         <p className="hidden sm:block">Kardex</p>
       </Link>
       <Link to="/products" className={linkClasses("/products")}>
-        <Boxes className="sm:hidden" size={25} />
-        <Boxes className="hidden sm:block" />
+        <Boxes className="sm:hidden" size={25}/>
+        <Boxes className="hidden sm:block"/>
         <p className="hidden sm:block">Productos</p>
       </Link>
+      <Link to="/categories" className={linkClasses("/categories")}>
+      <PackageOpen className="sm:hidden" size={25}/>
+      <PackageOpen className="hidden sm:block"/>
+      <p className="hidden sm:block">Categorias</p>
+    </Link>
     </div>
   );
 };
