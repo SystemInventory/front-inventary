@@ -13,11 +13,10 @@ export const useKardex = (editData, setEditData) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    console.log("Kardex data in useKardex:", kardex); // Agrega este console.log
     setTimeout(() => {
       setIsLoading(false);
     }, 2000);
-  }, [kardex]);
+  }, []);
 
   const methods = useForm({
     resolver: zodResolver(kardexFormSchema),
@@ -34,8 +33,21 @@ export const useKardex = (editData, setEditData) => {
       setValue("userId", editData.userId);
       setValue("expirationDate", editData.expirationDate);
       setValue("supplierId", editData.supplierId);
+      setValue("time", editData.time); 
+      setIsDialogOpen(true);
     }
   }, [editData, setValue]);
+
+  const onSubmit = (data) => {
+    if (editData) {
+      editKardex({ ...data, id: editData.id });
+      setEditData(null);
+    } else {
+      addKardex({ ...data, id: Date.now() });
+    }
+    reset();
+    setIsDialogOpen(false);
+  };
 
   return {
     kardex,
@@ -46,5 +58,7 @@ export const useKardex = (editData, setEditData) => {
     setIsDialogOpen,
     isLoading,
     methods,
+    onSubmit,
+    handleSubmit: handleSubmit(onSubmit),
   };
 };

@@ -12,9 +12,6 @@ export const KardexPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const { itemFilter } = getFilter(kardex, searchTerm);
 
-  console.log("Kardex data in KardexPage:", kardex);
-  console.log("Filtered Kardex data in KardexPage:", itemFilter);
-
   return (
     <div className="container mx-auto px-4">
       <div className="flex justify-between text-center">
