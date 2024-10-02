@@ -1,8 +1,7 @@
-import { categories } from "@/data/categories.js";
 import { create } from "zustand";
 
 export const useCategoryStore = create((set) => ({
-  categories: categories,
+  categories: [],
   addCategory: (newCategory) =>
     set((state) => ({
       categories: [...state.categories, newCategory],

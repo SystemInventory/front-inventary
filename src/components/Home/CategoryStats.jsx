@@ -1,7 +1,9 @@
 import { Card, CardTitle } from "@/components/ui/card";
+import { useCategory } from "@/hooks/useCategory";
 import { Package, ShoppingBag, ContactRound } from "lucide-react";
 
 export const CategoryStats = () => {
+   const{categories} = useCategory()
   return (
     <div className="flex justify-center flex-col w-full md:w-1/4 min-w-[200px]">
       <div className="flex flex-col gap-4 md:gap-16">
@@ -11,7 +13,7 @@ export const CategoryStats = () => {
             <Package />
           </div>
           <div className="flex-grow flex justify-center items-end">
-            <span className="font-bold text-4xl">500</span>
+            <span className="font-bold text-4xl">{categories.length}</span>
           </div>
         </Card>
 

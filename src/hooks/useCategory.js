@@ -1,4 +1,5 @@
 import { categoriesFormSchema } from "@/lib/zod-validations/categoriesFormSchema";
+import { fillAddCategories } from "@/services/category.service";
 import { useCategoryStore } from "@/stores/useCategoryStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
@@ -12,14 +13,21 @@ export const useCategory = (editData, setEditData) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 200);
-  }, []);
   const methods = useForm({
     resolver: zodResolver(categoriesFormSchema),
   });
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const data = await fillAddCategories();
+      if (data) {
+        useCategoryStore.setState({categories:data});
+      }
+      setIsLoading(false);
+    };
+    fetchCategories();
+  }, []);
+
   const { handleSubmit, reset, setValue } = methods;
 
   useEffect(() => {

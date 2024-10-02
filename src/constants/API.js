@@ -1,2 +1,1 @@
-export const API = import.meta.env.PROD
-export const baseURL = "api/vi"
+export const API = import.meta.env.VITE_BACKEND_SERVER

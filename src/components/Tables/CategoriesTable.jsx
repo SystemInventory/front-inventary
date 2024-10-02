@@ -19,6 +19,7 @@ export const CategoriesTable = ({ setEditData, categories }) => {
           <TableRow>
             <TableHead>Nombre</TableHead>
             <TableHead>Descripcion</TableHead>
+            <TableHead>Activo</TableHead>
             <TableHead className="">Acciones</TableHead>
           </TableRow>
         </TableHeader>
@@ -27,6 +28,7 @@ export const CategoriesTable = ({ setEditData, categories }) => {
             <TableRow key={category.id}>
               <TableCell>{category.name}</TableCell>
               <TableCell>{category.description}</TableCell>
+              <TableCell>{category.isActive ? "Activo":"Inactivo"}</TableCell>
               <TableCell>
                 <Button variant="outline" onClick={() => setEditData(category)}>
                   <SquarePen />

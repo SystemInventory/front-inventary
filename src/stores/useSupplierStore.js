@@ -1,8 +1,7 @@
-import { suppliers as supplier } from "@/data/suppliers";
 import { create } from "zustand";
 
 export const useSupplierStore = create((set) => ({
-  supplier: supplier,
+  supplier: [],
   addSupplier: (newSupplier) =>
     set((state) => ({ supplier: [...state.supplier, newSupplier] })),
   editSupplier: (updateSupplier) =>
