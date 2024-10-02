@@ -1,7 +1,7 @@
 export const kardex = [
     {
         id: 1,
-        date: "2023-12-31",
+        time: "2023-12-12",
         product: "Paracetamol",
         tipoTransacction: "entrada",
         count: 10,
@@ -12,7 +12,7 @@ export const kardex = [
     },
     {
         id: 2,
-        date: "2023-11-15",
+        time: "2023-11-15",
         product: "Ibuprofeno",
         tipoTransacction: "entrada",
         count: 20,
@@ -23,7 +23,7 @@ export const kardex = [
     },
     {
         id: 3,
-        date: "2023-10-10",
+        time: "2023-10-10",
         product: "Amoxicilina",
         tipoTransacction: "entrada",
         count: 15,
@@ -34,7 +34,7 @@ export const kardex = [
     },
     {
         id: 4,
-        date: "2023-09-05",
+        time: "2023-09-05",
         product: "Clorfenamina",
         tipoTransacction: "entrada",
         count: 25,
@@ -45,7 +45,7 @@ export const kardex = [
     },
     {
         id: 5,
-        date: "2023-08-20",
+        time: "2023-08-20",
         product: "Diclofenaco",
         tipoTransacction: "entrada",
         count: 30,
@@ -56,7 +56,7 @@ export const kardex = [
     },
     {
         id: 6,
-        date: "2023-07-15",
+        time: "2023-07-15",
         product: "Metformina",
         tipoTransacction: "entrada",
         count: 40,
@@ -67,7 +67,7 @@ export const kardex = [
     },
     {
         id: 7,
-        date: "2023-06-10",
+        time: "2023-06-10",
         product: "Loratadina",
         tipoTransacction: "entrada",
         count: 50,
@@ -78,7 +78,7 @@ export const kardex = [
     },
     {
         id: 8,
-        date: "2023-05-05",
+        time: "2023-05-05",
         product: "Omeprazol",
         tipoTransacction: "entrada",
         count: 60,
@@ -89,7 +89,7 @@ export const kardex = [
     },
     {
         id: 9,
-        date: "2023-04-01",
+        time: "2023-04-01",
         product: "Azitromicina",
         tipoTransacction: "entrada",
         count: 70,
@@ -100,7 +100,7 @@ export const kardex = [
     },
     {
         id: 10,
-        date: "2023-03-25",
+        time: "2023-03",
         product: "Prednisona",
         tipoTransacction: "entrada",
         count: 80,
@@ -108,16 +108,5 @@ export const kardex = [
         userId: 10,
         expirationDate: "2024-03-25",
         supplierId: 11,
-    },
-    {
-        id: 11,
-        date: "2023-02-20",
-        product: "Ciprofloxacino",
-        tipoTransacction: "entrada",
-        count: 90,
-        description: "Compra trimestral",
-        userId: 11,
-        expirationDate: "2024-02-20",
-        supplierId: 12,
-    },
+    }
 ];

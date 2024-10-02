@@ -25,7 +25,6 @@ export const KardexTable = ({ kardex, setEditData }) => {
     return user ? user.name : "Desconocido";
   };
 
-  console.log("Kardex data in KardexTable:", kardex);
 
   return (
     <div className="overflow-hidden">
@@ -46,7 +45,7 @@ export const KardexTable = ({ kardex, setEditData }) => {
         <TableBody>
           {kardex.map((item) => (
             <TableRow key={item.id}>
-              <TableCell>{item.date}</TableCell>
+              <TableCell>{item.time}</TableCell>
               <TableCell>{item.product}</TableCell>
               <TableCell>{item.tipoTransacction}</TableCell>
               <TableCell>{item.count}</TableCell>
