@@ -1,6 +1,6 @@
 import { ButtonForm } from "@/components/ButtonForm";
 import { InputSearch } from "@/components/common/InputSearch";
-import { TableInformation } from "@/components/Tables/TableInformation";
+import { TableInformation } from "@/components/Tables/PersonalTable";
 import { TableSkeleton } from "@/components/common/TableSkeleton";
 import { usePersonnel } from "@/hooks/usePersonnel";
 import { getFilter } from "@/utils/getFilter";
