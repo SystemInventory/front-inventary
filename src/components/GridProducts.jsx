@@ -7,6 +7,7 @@ export const GridProducts = () => {
     {
       product.map((item)=>(
         <CardProduct key={item.id}
+        id={item.id}
          name={item.name}
          category={item.category}
          description={item.description}
