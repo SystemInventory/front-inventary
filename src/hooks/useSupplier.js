@@ -1,5 +1,4 @@
 import { suppliersFormSchema } from "@/lib/zod-validations/suppliersFormSchema";
-import { fillAllSuppliers } from "@/services/suppliers.service";
 import { useSupplierStore } from "@/stores/useSupplierStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
@@ -13,14 +12,9 @@ export const useSupplier = (editData, setEditData) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    const fetchSuppliers  = async() => {
-      const data = await fillAllSuppliers()
-      if(data){
-        useSupplierStore.setState({suppliers:data})
-      }
+    setTimeout(() => {
       setIsLoading(false);
-    }
-    fetchSuppliers();
+    }, 2000);
   }, []);
   const methods = useForm({
     resolver: zodResolver(suppliersFormSchema),

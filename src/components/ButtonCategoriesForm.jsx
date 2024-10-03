@@ -23,13 +23,13 @@ export const ButtonCategoriesForm = ({ editData, setEditData }) => {
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
           <Button variant="outline" onClick={() => setIsDialogOpen(true)}>
-            <Plus /> Añadir Proveedor
+            <Plus /> Añadir Categoria
           </Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>
-              {editData ? "Editar Proveedor" : "Agregar Nuevo Proveedor"}
+              {editData ? "Editar Categoria" : "Agregar Nueva Categoria"}
             </DialogTitle>
           </DialogHeader>
           <FormProvider {...methods}>

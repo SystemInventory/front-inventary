@@ -10,7 +10,6 @@ export const CategoryPage = () => {
   const { categories, isLoading } = useCategory();
   const [editData, setEditData] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  // const { itemFilter } = getFilter(categories, searchTerm);
   
   return (
     <div className="container mx-auto px-4">

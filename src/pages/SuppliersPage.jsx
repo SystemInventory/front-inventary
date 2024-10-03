@@ -10,8 +10,6 @@ export const SuppliersPage = () => {
   const { suppliers, isLoading } = useSupplier();
   const [editData, setEditData] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  console.log(suppliers)
-  // const { itemFilter } = getFilter(suppliers, searchTerm);
 
   return (
     <div className="container mx-auto px-4">
@@ -24,7 +22,7 @@ export const SuppliersPage = () => {
         <TableSkeleton />
       ) : (
         <SuppliersTable
-          suppliers={suppliers }
+          suppliers={suppliers}
           setEditData={setEditData}
         />
       )}
