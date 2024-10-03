@@ -1,22 +1,18 @@
-import { CardProduct } from "@/components/CardProduct";
+import { ButtonProductsForm } from "@/components/ButtonProductsForm";
+import { GridProducts } from "@/components/GridProducts";
+import { useProduct } from "@/hooks/useProduct";
+import { useState } from "react";
 
 export const ProductsPage = () => {
+  const {product,isLoading} = useProduct()
+  const [editData, setEditData] = useState(null);
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
-      <CardProduct />
-      <CardProduct />
-      <CardProduct />
-      <CardProduct />
-      <CardProduct />
-      <CardProduct />
-      <CardProduct />
-      <CardProduct />
-      <CardProduct />
-      <CardProduct />
-      <CardProduct />
-      <CardProduct />
-      <CardProduct />
-      <CardProduct />
+    <div className="container mx-auto px-4">
+    <div className="flex justify-between text-center">
+     <ButtonProductsForm/>
     </div>
+      <GridProducts setEditData={setEditData} />
+    </div>
+    
   );
 };
