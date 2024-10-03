@@ -1,7 +1,9 @@
 import { SquarePen, Trash2 } from "lucide-react";
 import { Badge, Button, Card, CardContent, CardFooter, CardHeader } from "./ui";
+import { useProduct } from "@/hooks/useProduct";
 
 export const CardProduct = ({
+  id,
   codigo,
   name,
   category,
@@ -10,6 +12,7 @@ export const CardProduct = ({
   units,
   imageUrl,
 }) => {
+  const {deleteProduct} = useProduct()
   return (
     <Card className="transition-transform transform hover:scale-105 hover:shadow-lg cursor-pointer flex flex-col">
       <CardHeader>
@@ -37,7 +40,7 @@ export const CardProduct = ({
           <SquarePen />
           Editar
         </Button>
-        <Button variant="outline">
+        <Button variant="outline" onClick={()=> deleteProduct (id)} >
           <Trash2 color="red" />
           Eliminar
         </Button>

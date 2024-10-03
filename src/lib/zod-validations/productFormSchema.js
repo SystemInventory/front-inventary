@@ -7,7 +7,7 @@ export const productFormSchema = z.object({
     typeProduct: z.string().min(1, "El tipo de producto es obligatorio"),
     codeProduct: z.string().min(1, "El código de producto es obligatorio"),
     category: z.string().min(1, "La categoría es obligatoria"),
-    price: z.string(),
+    price: z.string().min(1,"El precio es obligatorio"),
     units: z.string().min(1, "Las unidades son obligatorias"),
     image: z.any().optional() 
 });

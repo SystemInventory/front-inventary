@@ -1,4 +1,4 @@
-import { productFormSchema } from "@/lib/zod-validations/produdctFormShema";
+import { productFormSchema } from "@/lib/zod-validations/productFormSchema";
 import { useProductStore } from "@/stores/useProductStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
@@ -22,16 +22,26 @@ export const useProduct = (editData, setEditData) => {
   });
   const { handleSubmit, reset, setValue } = methods;
   
+  useEffect(() => {
+    if(editData){
+      setValue("nameProduct",editData.nameProduct)
+    }
+  }, [editData,setValue])
+  
   const onSubmit = (data) => {
+    console.log("onSubmit called with data:", data); // Agregar este console.log
     if (editData) {
       editProduct({ ...data, id: editData.id });
       setEditData(null);
     } else {
-      addProduct({ ...data, id: Date.now() });
+      const newProduct = { ...data, id: Date.now() };
+      addProduct(newProduct);
+      console.log("Producto creado:", newProduct); // Asegúrate de que este console.log esté aquí
     }
     reset();
     setIsDialogOpen(false);
   };
+
   return {
     setIsDialogOpen,
     isLoading,
@@ -41,6 +51,7 @@ export const useProduct = (editData, setEditData) => {
     addProduct,
     product,
     methods,
+    onSubmit,
     handleSubmit: handleSubmit(onSubmit),
   };
 };

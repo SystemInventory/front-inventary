@@ -30,6 +30,7 @@ export const useCategory = (editData, setEditData) => {
       setIsDialogOpen(true);
     }
   }, [editData, setValue]);
+  
   const onSubmit = (data) => {
     if (editData) {
       editCategory({ ...data, id: editData.id });

@@ -29,7 +29,7 @@ export const ProductForm = () => {
   };
 
   return (
-    <div className="   grid grid-cols-3 gap-5 py-2">
+    <div className="grid grid-cols-3 gap-5 py-2">
       <div className="col-span-2 grid grid-cols-2 gap-20">
         <div className="flex flex-col gap-6">
           <FormItem>
