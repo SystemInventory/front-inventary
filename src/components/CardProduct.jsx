@@ -2,7 +2,7 @@ import { SquarePen, Trash2 } from "lucide-react";
 import { Badge, Button, Card, CardContent, CardFooter, CardHeader } from "./ui";
 
 export const CardProduct = ({
-  id,
+  codigo,
   name,
   category,
   description,
@@ -24,7 +24,7 @@ export const CardProduct = ({
             <Badge variant="outline">{category}</Badge>
           </span>
         </div>
-        <p className="text-xs text-gray-500">Codigo{id}</p>
+        <p className="text-xs text-gray-500">Codigo{codigo}</p>
         <span className="font-semibold">{description}</span>
         <div className="flex justify-between">
           <span className="font-semibold">${price}</span>
