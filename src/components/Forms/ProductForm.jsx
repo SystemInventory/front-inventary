@@ -85,16 +85,30 @@ export const ProductForm = () => {
         </FormItem>
         </div>
         <div className="flex flex-col gap-6">
-          <FormItem>
+        <FormItem>
             <FormLabel htmlFor="category">Categoría</FormLabel>
             <FormControl>
-              <select id="category" {...register("category")} className="input">
-                {categories.map((category) => (
-                  <option key={category.id} value={category.name}>
-                    {category.name}
-                  </option>
-                ))}
-              </select>
+              <Select
+                onValueChange={(value) =>
+                  setValue("category", value)
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Seleccione una categoría" />
+                </SelectTrigger>
+                <SelectContent>
+                  {categories
+                    .filter((category) => category.isActive)
+                    .map((category) => (
+                      <SelectItem
+                        key={category.id}
+                        value={category.name}
+                      >
+                        {category.name}
+                      </SelectItem>
+                    ))}
+                </SelectContent>
+              </Select>
             </FormControl>
             {errors.category && (
               <FormMessage>{errors.category.message}</FormMessage>
