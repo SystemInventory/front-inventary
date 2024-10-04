@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 
 import {
@@ -14,9 +15,13 @@ export const ProductForm = () => {
     formState: { errors },
     setValue,
   } = useFormContext();
+  const [imageUrl, setImageUrl] = useState(null);
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      const url = URL.createObjectURL(file);
+      setImageUrl(url);
       setValue("imageUrl", file);
     }
   };
@@ -119,6 +124,15 @@ export const ProductForm = () => {
             )}
           </FormItem>
         </div>
+      </div>
+      <div className="flex flex-col gap-6">
+        {imageUrl ? (
+          <img src={imageUrl} alt="Selected" className="mt-2 w-full h-full object-cover" />
+        ) : (
+          <div className="mt-2 w-full h-full bg-gray-200 flex items-center justify-center">
+            Sin imagen
+          </div>
+        )}
       </div>
     </div>
   );
