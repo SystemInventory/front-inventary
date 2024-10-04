@@ -28,6 +28,7 @@ export const usePersonnel = (editData, setEditData) => {
       setValue("dni", editData.dni);
       setValue("email", editData.email);
       setValue("phone", editData.phone);
+      setValue("isActive", editData.isActive);
       setIsDialogOpen(true);
     }
   }, [editData, setValue]);
@@ -37,7 +38,9 @@ export const usePersonnel = (editData, setEditData) => {
       editPersonal({ ...data, id: editData.id });
       setEditData(null);
     } else {
-      addPersonal({ ...data, id: Date.now() });
+      const newPersonal = { ...data, id: Date.now() };
+      addPersonal(newPersonal);
+      console.log(newPersonal);
     }
     reset();
     setIsDialogOpen(false);
@@ -51,6 +54,7 @@ export const usePersonnel = (editData, setEditData) => {
     isDialogOpen,
     setIsDialogOpen,
     methods,
-    handleSubmit: handleSubmit(onSubmit),isLoading
+    handleSubmit: handleSubmit(onSubmit),
+    isLoading,
   };
 };
