@@ -33,17 +33,20 @@ export const useKardex = (editData, setEditData) => {
       setValue("userId", editData.userId);
       setValue("expirationDate", editData.expirationDate);
       setValue("supplierId", editData.supplierId);
-      setValue("time", editData.time); 
+      setValue("dateOperation", editData.dateOperation); 
       setIsDialogOpen(true);
     }
   }, [editData, setValue]);
 
   const onSubmit = (data) => {
+    console.log("onSubmit called with data:", data); 
     if (editData) {
       editKardex({ ...data, id: editData.id });
       setEditData(null);
     } else {
-      addKardex({ ...data, id: Date.now() });
+      const newKardex = { ...data, id: Date.now() }
+      addKardex(newKardex);
+      console.log(newKardex)
     }
     reset();
     setIsDialogOpen(false);

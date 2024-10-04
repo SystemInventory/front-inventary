@@ -31,7 +31,7 @@ export const KardexTable = ({ kardex, setEditData }) => {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Fecha</TableHead>
+            <TableHead>Fecha Operacion</TableHead>
             <TableHead>Producto</TableHead>
             <TableHead>Tipo Transaccion</TableHead>
             <TableHead>Cantidad</TableHead>
@@ -45,7 +45,7 @@ export const KardexTable = ({ kardex, setEditData }) => {
         <TableBody>
           {kardex.map((item) => (
             <TableRow key={item.id}>
-              <TableCell>{item.time}</TableCell>
+              <TableCell>{item.dateOperation}</TableCell>
               <TableCell>{item.product}</TableCell>
               <TableCell>{item.tipoTransacction}</TableCell>
               <TableCell>{item.count}</TableCell>

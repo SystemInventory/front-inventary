@@ -106,16 +106,16 @@ export const KardexForm = () => {
           )}
         </FormItem>
         <FormItem>
-          <FormLabel htmlFor="time">Fecha</FormLabel>
+          <FormLabel htmlFor="dateOperation">Fecha Operacion</FormLabel>
           <FormControl>
             <Input
-              id="time"
+              id="dateOperation"
               type="date"
-              {...register("time", { required: "Fecha es requerida" })}
+              {...register("dateOperation", { required: "Fecha operacion es requerida" })}
               className="input"
             />
           </FormControl>
-          {errors.time && <FormMessage>{errors.time.message}</FormMessage>}
+          {errors.dateOperation && <FormMessage>{errors.dateOperation.message}</FormMessage>}
         </FormItem>
         <FormItem>
           <FormLabel htmlFor="userId">Usuario</FormLabel>
