@@ -41,7 +41,12 @@ export const useProduct = (editData, setEditData) => {
   const onSubmit = (data) => {
     console.log("onSubmit called with data:", data); 
     if (editData) {
-      editProduct({ ...data, id: editData.id });
+      const updatedProduct = {
+        ...data,
+        id: editData.id,
+        imageUrl: data.imageUrl || editData.imageUrl, // Mantener la imagen existente si no se selecciona una nueva
+      };
+      editProduct(updatedProduct);
       setEditData(null);
     } else {
       const newProduct = { ...data, id: Date.now() };

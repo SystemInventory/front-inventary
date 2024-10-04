@@ -8,6 +8,7 @@ import {
   FormMessage,
   Input,
 } from "@/components/ui";
+import { categories } from "@/data/categories";
 
 export const ProductForm = () => {
   const {
@@ -69,13 +70,15 @@ export const ProductForm = () => {
         </div>
         <div className="flex flex-col gap-6">
           <FormItem>
-            <FormLabel htmlFor="category">Category</FormLabel>
+            <FormLabel htmlFor="category">Categoría</FormLabel>
             <FormControl>
-              <Input
-                id="category"
-                {...register("category")}
-                className="input"
-              />
+              <select id="category" {...register("category")} className="input">
+                {categories.map((category) => (
+                  <option key={category.id} value={category.name}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
             </FormControl>
             {errors.category && (
               <FormMessage>{errors.category.message}</FormMessage>
@@ -87,6 +90,7 @@ export const ProductForm = () => {
               <Input
                 id="price"
                 type="number"
+                step="0.01"
                 {...register("price", { valueAsNumber: true })}
                 className="input"
               />
@@ -127,7 +131,11 @@ export const ProductForm = () => {
       </div>
       <div className="flex flex-col gap-6">
         {imageUrl ? (
-          <img src={imageUrl} alt="Selected" className="mt-2 w-full h-full object-cover" />
+          <img
+            src={imageUrl}
+            alt="Selected"
+            className="mt-2 w-full h-full object-cover"
+          />
         ) : (
           <div className="mt-2 w-full h-full bg-gray-200 flex items-center justify-center">
             Sin imagen
