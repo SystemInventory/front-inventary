@@ -1,8 +1,8 @@
-import { productFormSchema } from "@/lib/zod-validations/produdctFormShema";
 import { useProductStore } from "@/stores/useProductStore";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { productFormSchema } from "@/lib/zod-validations/productFormSchema";
 
 export const useProduct = (editData, setEditData) => {
   const product = useProductStore((state) => state.product);
@@ -11,6 +11,7 @@ export const useProduct = (editData, setEditData) => {
   const deleteProduct = useProductStore((state) => state.deleteProduct);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
@@ -21,17 +22,41 @@ export const useProduct = (editData, setEditData) => {
     resolver: zodResolver(productFormSchema),
   });
   const { handleSubmit, reset, setValue } = methods;
-  
-  const onSubmit = (data) => {
+
+  useEffect(() => {
     if (editData) {
-      editProduct({ ...data, id: editData.id });
+      setValue("id", editData.id);
+      setValue("codigo", editData.codigo);
+      setValue("nameProduct", editData.nameProduct);
+      setValue("category", editData.category);
+      setValue("description", editData.description);
+      setValue("price", editData.price);
+      setValue("units", editData.units);
+      setValue("imageUrl", editData.imageUrl);
+      setIsDialogOpen(true);
+    }
+  }, [editData, setValue]);
+
+
+  const onSubmit = (data) => {
+    console.log("onSubmit called with data:", data); 
+    if (editData) {
+      const updatedProduct = {
+        ...data,
+        id: editData.id,
+        imageUrl: data.imageUrl || editData.imageUrl, // Mantener la imagen existente si no se selecciona una nueva
+      };
+      editProduct(updatedProduct);
       setEditData(null);
     } else {
-      addProduct({ ...data, id: Date.now() });
+      const newProduct = { ...data, id: Date.now() };
+      addProduct(newProduct);
+      console.log("Producto creado:", newProduct); 
     }
     reset();
     setIsDialogOpen(false);
   };
+
   return {
     setIsDialogOpen,
     isLoading,
@@ -41,6 +66,8 @@ export const useProduct = (editData, setEditData) => {
     addProduct,
     product,
     methods,
+    onSubmit,
     handleSubmit: handleSubmit(onSubmit),
+
   };
 };

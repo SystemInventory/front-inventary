@@ -1,6 +1,6 @@
-import { Dialog } from "@radix-ui/react-dialog";
 import {
   Button,
+  Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
@@ -17,6 +17,7 @@ export const ButtonProductsForm = ({ editData, setEditData }) => {
     editData,
     setEditData
   );
+
   return (
     <div className="flex justify-end mb-4">
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -32,7 +33,7 @@ export const ButtonProductsForm = ({ editData, setEditData }) => {
             </DialogTitle>
           </DialogHeader>
           <FormProvider {...methods}>
-            <form onSubmit={handleSubmit}  >
+            <form onSubmit={handleSubmit}>
               <ProductForm />
               <DialogFooter>
                 <Button type="submit">Guardar Cambios</Button>

@@ -1,18 +1,23 @@
+import { useState } from "react";
 import { ButtonProductsForm } from "@/components/ButtonProductsForm";
 import { GridProducts } from "@/components/GridProducts";
 import { useProduct } from "@/hooks/useProduct";
-import { useState } from "react";
+import { CardProductSkeleton } from "@/components/common/CardProductSkeleton";
 
 export const ProductsPage = () => {
-  const {product,isLoading} = useProduct()
   const [editData, setEditData] = useState(null);
+  const { product, isLoading } = useProduct();
+
   return (
     <div className="container mx-auto px-4">
-    <div className="flex justify-between text-center">
-     <ButtonProductsForm/>
+      <div className="flex justify-between text-center">
+        <ButtonProductsForm editData={editData} setEditData={setEditData} />
+      </div>
+      {isLoading ? (
+        <CardProductSkeleton />
+      ) : (
+        <GridProducts product={product} setEditData={setEditData} />
+      )}
     </div>
-      <GridProducts setEditData={setEditData} />
-    </div>
-    
   );
 };
