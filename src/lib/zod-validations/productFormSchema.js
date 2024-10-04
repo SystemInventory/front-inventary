@@ -8,4 +8,5 @@ export const productFormSchema = z.object({
     price: z.number().positive("El precio debe ser un número positivo"), 
     units: z.number().positive("Las unidades deben ser un número positivo"), 
     imageUrl: z.any().optional(), 
+    isActive: z.boolean().optional(),
   });

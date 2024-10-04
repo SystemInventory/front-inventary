@@ -9,6 +9,7 @@ import {
   Input,
 } from "@/components/ui";
 import { categories } from "@/data/categories";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
 export const ProductForm = () => {
   const {
@@ -67,6 +68,21 @@ export const ProductForm = () => {
               <FormMessage>{errors.codigo.message}</FormMessage>
             )}
           </FormItem>
+          <FormItem>
+          <FormLabel htmlFor="isActive">Estado</FormLabel>
+          <FormControl>
+            <Select onValueChange={(value) => setValue("isActive", value === "true")}>
+              <SelectTrigger>
+                <SelectValue placeholder="Selecciona el estado" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="true">Activo</SelectItem>
+                <SelectItem value="false">Inactivo</SelectItem>
+              </SelectContent>
+            </Select>
+          </FormControl>
+          {errors.isActive && <FormMessage>{errors.isActive.message}</FormMessage>}
+        </FormItem>
         </div>
         <div className="flex flex-col gap-6">
           <FormItem>
