@@ -19,7 +19,7 @@ export const CategoriesTable = ({ setEditData, categories }) => {
           <TableRow>
             <TableHead>Nombre</TableHead>
             <TableHead>Descripcion</TableHead>
-            <TableHead>Activo</TableHead>
+            <TableHead>Status</TableHead>
             <TableHead className="">Acciones</TableHead>
           </TableRow>
         </TableHeader>
