@@ -27,6 +27,7 @@ export const useSupplier = (editData, setEditData) => {
       setValue("dni", editData.dni);
       setValue("email", editData.email);
       setValue("phone", editData.phone);
+      setValue("isActive", editData.isActive);
       setIsDialogOpen(true);
     }
   }, [editData, setValue]);
@@ -36,7 +37,9 @@ export const useSupplier = (editData, setEditData) => {
       editSupplier({ ...data, id: editData.id });
       setEditData(null);
     } else {
-      addSupplier({ ...data, id: Date.now() });
+      const newSupplier = { ...data, id: Date.now() };
+      addSupplier(newSupplier);
+      console.log(newSupplier);
     }
     reset();
     setIsDialogOpen(false);

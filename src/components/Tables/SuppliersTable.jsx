@@ -21,6 +21,7 @@ export const SuppliersTable = ({ suppliers, setEditData }) => {
             <TableHead>DNI</TableHead>
             <TableHead>Correo</TableHead>
             <TableHead>Telefono</TableHead>
+            <TableHead>Status</TableHead>
             <TableHead>Acciones</TableHead>
           </TableRow>
         </TableHeader>
@@ -31,6 +32,7 @@ export const SuppliersTable = ({ suppliers, setEditData }) => {
               <TableCell>{suppier.dni}</TableCell>
               <TableCell>{suppier.email}</TableCell>
               <TableCell>{suppier.phone}</TableCell>
+              <TableCell>{suppier.isActive ? "Activo":"Inactivo"}</TableCell>
               <TableCell>
                 <Button variant="outline" onClick={() => setEditData(suppier)}>
                   <SquarePen />
