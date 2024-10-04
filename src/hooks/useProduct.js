@@ -32,6 +32,7 @@ export const useProduct = (editData, setEditData) => {
       setValue("description", editData.description);
       setValue("price", editData.price);
       setValue("units", editData.units);
+      setValue("isActive", editData.isActive);
       setValue("imageUrl", editData.imageUrl);
       setIsDialogOpen(true);
     }
@@ -44,7 +45,7 @@ export const useProduct = (editData, setEditData) => {
       const updatedProduct = {
         ...data,
         id: editData.id,
-        imageUrl: data.imageUrl || editData.imageUrl, // Mantener la imagen existente si no se selecciona una nueva
+        imageUrl: data.imageUrl || editData.imageUrl,
       };
       editProduct(updatedProduct);
       setEditData(null);

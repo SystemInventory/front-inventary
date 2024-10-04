@@ -27,16 +27,19 @@ export const useCategory = (editData, setEditData) => {
     if (editData) {
       setValue("name", editData.name);
       setValue("description", editData.description);
+      setValue("isActive", editData.isActive);
       setIsDialogOpen(true);
     }
   }, [editData, setValue]);
-  
+
   const onSubmit = (data) => {
     if (editData) {
       editCategory({ ...data, id: editData.id });
       setEditData(null);
     } else {
-      addCategory({ ...data, id: Date.now() });
+      const newCategory = { ...data, id: Date.now() };
+      addCategory(newCategory);
+      console.log(newCategory);
     }
     reset();
     setIsDialogOpen(false);

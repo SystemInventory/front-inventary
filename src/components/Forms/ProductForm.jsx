@@ -9,6 +9,7 @@ import {
   Input,
 } from "@/components/ui";
 import { categories } from "@/data/categories";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
 export const ProductForm = () => {
   const {
@@ -67,18 +68,47 @@ export const ProductForm = () => {
               <FormMessage>{errors.codigo.message}</FormMessage>
             )}
           </FormItem>
+          <FormItem>
+          <FormLabel htmlFor="isActive">Estado</FormLabel>
+          <FormControl>
+            <Select onValueChange={(value) => setValue("isActive", value === "true")}>
+              <SelectTrigger>
+                <SelectValue placeholder="Selecciona el estado" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="true">Activo</SelectItem>
+                <SelectItem value="false">Inactivo</SelectItem>
+              </SelectContent>
+            </Select>
+          </FormControl>
+          {errors.isActive && <FormMessage>{errors.isActive.message}</FormMessage>}
+        </FormItem>
         </div>
         <div className="flex flex-col gap-6">
-          <FormItem>
+        <FormItem>
             <FormLabel htmlFor="category">Categoría</FormLabel>
             <FormControl>
-              <select id="category" {...register("category")} className="input">
-                {categories.map((category) => (
-                  <option key={category.id} value={category.name}>
-                    {category.name}
-                  </option>
-                ))}
-              </select>
+              <Select
+                onValueChange={(value) =>
+                  setValue("category", value)
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Seleccione una categoría" />
+                </SelectTrigger>
+                <SelectContent>
+                  {categories
+                    .filter((category) => category.isActive)
+                    .map((category) => (
+                      <SelectItem
+                        key={category.id}
+                        value={category.name}
+                      >
+                        {category.name}
+                      </SelectItem>
+                    ))}
+                </SelectContent>
+              </Select>
             </FormControl>
             {errors.category && (
               <FormMessage>{errors.category.message}</FormMessage>

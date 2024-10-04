@@ -1,9 +1,9 @@
 import { z } from "zod";
 
 export const kardexFormSchema = z.object({
-  id: z.number().int(),
+  id: z.number().int().optional(),
   product: z.string().min(1, "Producto es requerido"),
-  tipoTransacction: z.enum(["entrada", "salida"]),
+  tipoTransacction: z.enum(["ENTRADA", "SALIDA", "CADUCIDAD"]),
   count: z.number().int().positive(),
   description: z.string().min(1, "Descripción es requerida"),
   userId: z.number().int(),
@@ -12,7 +12,7 @@ export const kardexFormSchema = z.object({
     { message: "Formato de fecha inválido" }
   ),
   supplierId: z.number().int(),
-  time: z.string().refine(
+  dateOperation: z.string().refine(
     (date) => !isNaN(Date.parse(date)),
     { message: "Formato de fecha inválido" }
   ),
