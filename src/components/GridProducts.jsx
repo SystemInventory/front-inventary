@@ -36,12 +36,16 @@ export const GridProducts = ({ product, setEditData }) => {
                 <Badge variant="outline">{item.category}</Badge>
               </span>
             </div>
-            <p className="text-xs text-gray-500">Codigo{item.codigo}</p>
+            <div className="flex justify-between">
+              <p className="text-xs text-gray-500">Codigo{item.codigo}</p>
+              <Badge variant={item.isActive ? "success" : "destructive"}>
+                {item.isActive ? "Activo" : "Inactivo"}
+              </Badge>
+            </div>
             <span className="font-semibold">{item.description}</span>
             <div className="flex justify-between">
               <span className="font-semibold">${item.price}</span>
               <span>{item.units} unidades</span>
-              <span>{item.isActive ? "Activo" : "Inactivo"}</span>
             </div>
           </CardContent>
 
