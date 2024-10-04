@@ -33,12 +33,7 @@ export const ButtonProductsForm = ({ editData, setEditData }) => {
             </DialogTitle>
           </DialogHeader>
           <FormProvider {...methods}>
-            <form
-              onSubmit={methods.handleSubmit((data) => {
-                console.log("Form submitted with data:", data); // Agregar este console.log
-                handleSubmit(data);
-              })}
-            >
+            <form onSubmit={handleSubmit}>
               <ProductForm />
               <DialogFooter>
                 <Button type="submit">Guardar Cambios</Button>

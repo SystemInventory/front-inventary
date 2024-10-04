@@ -1,7 +1,7 @@
 
 import { useProduct } from "@/hooks/useProduct";
-import { Button, Card, CardContent, CardFooter, CardHeader } from "./ui";
-import { Badge, SquarePen, Trash2 } from "lucide-react";
+import { Badge, Button, Card, CardContent, CardFooter, CardHeader } from "./ui";
+import {  SquarePen, Trash2 } from "lucide-react";
 
 export const GridProducts = ({product, setEditData }) => {
   const {deleteProduct} = useProduct()
@@ -11,12 +11,24 @@ export const GridProducts = ({product, setEditData }) => {
        <Card key={item.id} className="transition-transform transform hover:scale-105 hover:shadow-lg cursor-pointer flex flex-col">
        <CardHeader>
          <figure className="w-full border mx-auto">
-           <img src={`${item.imageUrl}`} />
+         {item.imageUrl && (
+              <img
+                src={
+                  typeof item.imageUrl === "string"
+                    ? item.imageUrl
+                    : item.imageUrl instanceof File || item.imageUrl instanceof Blob
+                    ? URL.createObjectURL(item.imageUrl)
+                    : ""
+                }
+                alt={item.name}
+                className="w-full h-48 object-cover"
+              />
+            )}
          </figure>
        </CardHeader>
        <CardContent>
          <div className="flex justify-between">
-           <p className="text-lg font-semibold">{item.name}</p>
+           <p className="text-lg font-semibold">{item.nameProduct}</p>
            <span>
              <Badge variant="outline">{item.category}</Badge>
            </span>

@@ -2,7 +2,7 @@ export const product = [
   {
     id: 1,
     codigo: "PRD001",
-    name: "Paracetamol 500mg",
+    nameProduct: "Paracetamol 500mg",
     category: "Analgesicos",
     description: "Analgesico y antipiretico",
     price: 5.99,
@@ -13,7 +13,7 @@ export const product = [
   {
     id: 2,
     codigo: "PRD002",
-    name: "Ibuprofeno 400mg",
+    nameProduct: "Ibuprofeno 400mg",
     category: "Analgesicos",
     description: "Antiinflamatorio no esteroideo",
     price: 7.5,
@@ -24,7 +24,7 @@ export const product = [
   {
     id: 3,
     codigo: "PRD003",
-    name: "Amoxicilina 500mg",
+    nameProduct: "Amoxicilina 500mg",
     category: "Antibioticos",
     description: "Antibiotico de amplio espectro",
     price: 12.0,
@@ -35,7 +35,7 @@ export const product = [
   {
     id: 4,
     codigo: "PRD004",
-    name: "Durex Lubricante",
+    nameProduct: "Durex Lubricante",
     category: "Lubricantes",
     description: "Lubricante íntimo a base de agua",
     price: 15.99,
@@ -46,7 +46,7 @@ export const product = [
   {
     id: 5,
     codigo: "PRD005",
-    name: "K-Y Gel",
+    nameProduct: "K-Y Gel",
     category: "Lubricantes",
     description: "Lubricante íntimo a base de gel",
     price: 12.5,
@@ -57,7 +57,7 @@ export const product = [
   {
     id: 6,
     codigo: "PRD006",
-    name: "Metformina 850mg",
+    nameProduct: "Metformina 850mg",
     category: "Antidiabeticos",
     description: "Medicamento para la diabetes tipo 2",
     price: 6.75,
@@ -68,7 +68,7 @@ export const product = [
   {
     id: 7,
     codigo: "PRD009",
-    name: "Durex Clásico",
+    nameProduct: "Durex Clásico",
     category: "Condones",
     description: "Condones de látex clásicos",
     price: 12.99,
@@ -79,7 +79,7 @@ export const product = [
   {
     id: 8,
     codigo: "PRD010",
-    name: "Piel Sensible",
+    nameProduct: "Piel Sensible",
     category: "Condones",
     description: "Condones ultradelgados para mayor sensibilidad",
     price: 14.99,
@@ -90,7 +90,7 @@ export const product = [
   {
     id: 9,
     codigo: "PRD009",
-    name: "Clonazepam 2mg",
+    nameProduct: "Clonazepam 2mg",
     category: "Ansioliticos",
     description: "Tratamiento de la ansiedad",
     price: 15.0,
@@ -101,7 +101,7 @@ export const product = [
   {
     id: 10,
     codigo: "PRD010",
-    name: "Levotiroxina 50mcg",
+    nameProduct: "Levotiroxina 50mcg",
     category: "Hormonas",
     description: "Tratamiento del hipotiroidismo",
     price: 10.5,
@@ -112,7 +112,7 @@ export const product = [
   {
     id: 11,
     codigo: "PRD011",
-    name: "Cetirizina 10mg",
+    nameProduct: "Cetirizina 10mg",
     category: "Antihistaminicos",
     description: "Tratamiento de alergias",
     price: 5.25,

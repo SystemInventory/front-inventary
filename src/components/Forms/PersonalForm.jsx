@@ -20,6 +20,7 @@ import {
           </FormControl>
           {errors.name && <FormMessage>{errors.name.message}</FormMessage>}
         </FormItem>
+        
         <FormItem>
           <FormLabel htmlFor="dni">DNI</FormLabel>
           <br />
