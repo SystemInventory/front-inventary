@@ -90,16 +90,19 @@ export const KardexForm = () => {
         </FormItem>
       </div>
       <div className="flex flex-col gap-4">
-        <FormItem>
+      <FormItem>
           <FormLabel htmlFor="tipoTransacction">Tipo de Transacción</FormLabel>
           <FormControl>
-            <Input
-              id="tipoTransacction"
-              {...register("tipoTransacction", {
-                required: "Tipo de transacción es requerido",
-              })}
-              className="input"
-            />
+            <Select onValueChange={(value) => setValue("tipoTransacction", value)}>
+              <SelectTrigger>
+                <SelectValue placeholder="Seleccione un Tipo " />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="ENTRADA">ENTRADA</SelectItem>
+                <SelectItem value="SALIDA">SALIDA</SelectItem>
+                <SelectItem value="CADUCIDAD">CADUCIDAD</SelectItem>
+              </SelectContent>
+            </Select>
           </FormControl>
           {errors.tipoTransacction && (
             <FormMessage>{errors.tipoTransacction.message}</FormMessage>
