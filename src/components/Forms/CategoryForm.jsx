@@ -1,4 +1,3 @@
-// src/components/Forms/CategoryForm.jsx
 import { useFormContext } from "react-hook-form";
 import { FormControl, FormItem, FormLabel, FormMessage, Input } from "../ui";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";

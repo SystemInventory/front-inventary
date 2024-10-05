@@ -5,7 +5,7 @@ export const useCategoryStore = create((set) => ({
   categories: categories,
   addCategory: (newCategory) =>
     set((state) => ({
-      categories: [...state.categories, newCategory],
+      categories: [newCategory,...state.categories ],
     })),
   editCategory: (updateCategory) =>
     set((state) => ({

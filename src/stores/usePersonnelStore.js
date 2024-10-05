@@ -4,7 +4,7 @@ export const usePersonnelStore = create((set) => ({
   personal: personal,
   addPersonal: (newPersonal) =>
     set((state) => ({
-      personal: [...state.personal, newPersonal],
+      personal: [newPersonal,...state.personal ],
     })),
   editPersonal: (updatePersonal) =>
     set((state) => ({

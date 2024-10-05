@@ -5,21 +5,16 @@ import { TableSkeleton } from "@/components/common/Skeleton/TableSkeleton";
 import { useSupplier } from "@/hooks/useSupplier";
 import { getFilter } from "@/utils/getFilter";
 import { useState } from "react";
+import { headers } from "@/utils/headers/getHeaderPersonell";
+import { ContainerLayout } from "@/layout/ContainerLayout";
 
 export const SuppliersPage = () => {
-  const { suppliers, isLoading } = useSupplier();
+  const { suppliers, isLoading, handleDelete } = useSupplier();
   const [editData, setEditData] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const headers = [
-    { label: "Nombre", className: "w-[100px]" },
-    { label: "DNI" },
-    { label: "Correo" },
-    { label: "Telefono" },
-    { label: "Status" },
-    { label: "Acciones", className: "text-center" },
-  ];
+
   return (
-    <div className="container mx-auto px-4">
+    <ContainerLayout>
       <div className="flex justify-between ">
         <InputSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         <ButtonSupplierForm editData={editData} setEditData={setEditData} />
@@ -28,8 +23,12 @@ export const SuppliersPage = () => {
       {isLoading ? (
         <TableSkeleton headers={headers} />
       ) : (
-        <SuppliersTable suppliers={suppliers} setEditData={setEditData} />
+        <SuppliersTable
+          suppliers={suppliers}
+          setEditData={setEditData}
+          handleDelete={handleDelete}
+        />
       )}
-    </div>
+    </ContainerLayout>
   );
 };

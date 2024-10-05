@@ -1,8 +1,10 @@
 import { schema } from "@/lib/zod-validations/dataFormSchema";
 import { usePersonnelStore } from "@/stores/usePersonnelStore";
+import { Toast } from "@/utils/Toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
 export const usePersonnel = (editData, setEditData) => {
   const personal = usePersonnelStore((state) => state.personal);
@@ -37,19 +39,48 @@ export const usePersonnel = (editData, setEditData) => {
     if (editData) {
       editPersonal({ ...data, id: editData.id });
       setEditData(null);
+      Toast.fire({
+        icon: "success",
+        title: "Personal actualizado con éxito",
+      });
     } else {
       const newPersonal = { ...data, id: Date.now() };
       addPersonal(newPersonal);
       console.log(newPersonal);
+      Toast.fire({
+        icon: "success",
+        title: "Personal creado con éxito",
+      });
     }
     reset();
     setIsDialogOpen(false);
+  };
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "¡No podrás revertir esto!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, ¡elimínalo!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deletePersonal(id);
+        Swal.fire({
+          title: "¡Eliminado!",
+          text: "El registro ha sido eliminado.",
+          icon: "success",
+        });
+      }
+    });
   };
   return {
     addPersonal,
     editPersonal,
     personal,
     deletePersonal,
+    handleDelete,
     onSubmit,
     isDialogOpen,
     setIsDialogOpen,

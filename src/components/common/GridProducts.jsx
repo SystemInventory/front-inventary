@@ -1,9 +1,7 @@
-import { useProduct } from "@/hooks/useProduct";
 import { Badge, Button, Card, CardContent, CardFooter, CardHeader } from "../ui";
 import { SquarePen, Trash2 } from "lucide-react";
 
-export const GridProducts = ({ product, setEditData }) => {
-  const { deleteProduct } = useProduct();
+export const GridProducts = ({ product, setEditData ,handleDelete}) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
       {product.map((item) => (
@@ -44,7 +42,7 @@ export const GridProducts = ({ product, setEditData }) => {
             </div>
             <span className="font-semibold">{item.description}</span>
             <div className="flex justify-between">
-              <span className="font-semibold">${item.price}</span>
+              <span className="font-semibold">S/.{item.price}</span>
               <span>{item.units} unidades</span>
             </div>
           </CardContent>
@@ -54,7 +52,7 @@ export const GridProducts = ({ product, setEditData }) => {
               <SquarePen />
               Editar
             </Button>
-            <Button variant="outline" onClick={() => deleteProduct(item.id)}>
+            <Button variant="outline" onClick={() => handleDelete(item.id)}>
               <Trash2 color="red" />
               Eliminar
             </Button>

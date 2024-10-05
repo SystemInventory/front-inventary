@@ -10,8 +10,7 @@ import {
 } from "../ui";
 import { usePersonnel } from "@/hooks/usePersonnel";
 
-export const TableInformation = ({ personal, setEditData }) => {
-  const { deletePersonal } = usePersonnel();
+export const TableInformation = ({ personal, setEditData,handleDelete }) => {
   return (
     <div className="overflow-x-auto">
       <Table className="min-w-full divide-y divide-gray-200">
@@ -44,7 +43,7 @@ export const TableInformation = ({ personal, setEditData }) => {
                 </Button>
                 <Button
                   variant="outline"
-                  onClick={() => deletePersonal(person.id)}
+                  onClick={() => handleDelete(person.id)}
                 >
                   <Trash2 color="red" />
                   <span className="hidden sm:inline">Eliminar</span>
