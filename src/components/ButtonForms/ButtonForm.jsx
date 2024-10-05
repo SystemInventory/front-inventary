@@ -1,19 +1,19 @@
 import {
-  Button,
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "./ui";
+  Button,
+} from "../ui";
 import { Plus } from "lucide-react";
+import { usePersonnel } from "@/hooks/usePersonnel";
+import { PersonalForm } from "../Forms/PersonalForm";
 import { FormProvider } from "react-hook-form";
-import { useProduct } from "@/hooks/useProduct";
-import { ProductForm } from "./Forms/ProductForm";
 
-export const ButtonProductsForm = ({ editData, setEditData }) => {
-  const { isDialogOpen, setIsDialogOpen, methods, handleSubmit } = useProduct(
+export const ButtonForm = ({ editData, setEditData }) => {
+  const { isDialogOpen, setIsDialogOpen, methods, handleSubmit } = usePersonnel(
     editData,
     setEditData
   );
@@ -23,18 +23,18 @@ export const ButtonProductsForm = ({ editData, setEditData }) => {
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
           <Button variant="outline" onClick={() => setIsDialogOpen(true)}>
-            <Plus /> Añadir Producto
+            <Plus /> Añadir Personal
           </Button>
         </DialogTrigger>
-        <DialogContent className="w-full max-w-4xl">
+        <DialogContent>
           <DialogHeader>
             <DialogTitle>
-              {editData ? "Editar Producto" : "Agregar Nuevo Producto"}
+              {editData ? "Editar Personal" : "Agregar Nuevo Personal"}
             </DialogTitle>
           </DialogHeader>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit}>
-              <ProductForm />
+              <PersonalForm />
               <DialogFooter>
                 <Button type="submit">Guardar Cambios</Button>
               </DialogFooter>

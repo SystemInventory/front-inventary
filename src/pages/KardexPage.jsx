@@ -2,7 +2,7 @@ import { getFilter } from "@/utils/getFilter";
 import { useState } from "react";
 import { useKardex } from "@/hooks/useKardex";
 import { InputSearch } from "@/components/common/InputSearch";
-import { ButtonKardexForm } from "@/components/ButtonKardexForm";
+import { ButtonKardexForm } from "@/components/ButtonForms/ButtonKardexForm";
 import { TableSkeleton } from "@/components/common/TableSkeleton";
 import { KardexTable } from "@/components/Tables/KardexTable";
 

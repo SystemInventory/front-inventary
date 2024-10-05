@@ -1,4 +1,4 @@
-import { ButtonSupplierForm } from "@/components/ButtonSupplierForm";
+import { ButtonSupplierForm } from "@/components/ButtonForms/ButtonSupplierForm";
 import { InputSearch } from "@/components/common/InputSearch";
 import { SuppliersTable } from "@/components/Tables/SuppliersTable";
 import { TableSkeleton } from "@/components/common/TableSkeleton";

@@ -1,4 +1,4 @@
-import { ButtonCategoriesForm } from "@/components/ButtonCategoriesForm";
+import { ButtonCategoriesForm } from "@/components/ButtonForms/ButtonCategoriesForm";
 import { InputSearch } from "@/components/common/InputSearch";
 import { TableSkeleton } from "@/components/common/TableSkeleton";
 import { CategoriesTable } from "@/components/Tables/CategoriesTable.jsx";

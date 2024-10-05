@@ -1,39 +1,40 @@
 import {
+  Button,
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Button,
-} from "@/components/ui";
+} from "../ui";
 import { Plus } from "lucide-react";
-import { useSupplier } from "@/hooks/useSupplier";
-import { SupplierForm } from "./Forms/SupplierForm";
+import { useCategory } from "@/hooks/useCategory";
 import { FormProvider } from "react-hook-form";
+import { CategoryForm } from "../Forms/CategoryForm";
 
-export const ButtonSupplierForm = ({ editData, setEditData }) => {
-  const { isDialogOpen, setIsDialogOpen, methods, handleSubmit } = useSupplier(
+export const ButtonCategoriesForm = ({ editData, setEditData }) => {
+  const { isDialogOpen, setIsDialogOpen, methods, handleSubmit } = useCategory(
     editData,
     setEditData
   );
+
   return (
     <div className="flex justify-end mb-4">
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
           <Button variant="outline" onClick={() => setIsDialogOpen(true)}>
-            <Plus /> Añadir Proveedor
+            <Plus /> Añadir Categoria
           </Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>
-              {editData ? "Editar Proveedor" : "Agregar Nuevo Proveedor"}
+              {editData ? "Editar Categoria" : "Agregar Nueva Categoria"}
             </DialogTitle>
           </DialogHeader>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit}>
-              <SupplierForm />
+              <CategoryForm />
               <DialogFooter>
                 <Button type="submit">Guardar Cambios</Button>
               </DialogFooter>

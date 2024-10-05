@@ -1,4 +1,4 @@
-import { ButtonForm } from "@/components/ButtonForm";
+import { ButtonForm } from "@/components/ButtonForms/ButtonForm";
 import { InputSearch } from "@/components/common/InputSearch";
 import { TableInformation } from "@/components/Tables/PersonalTable";
 import { TableSkeleton } from "@/components/common/TableSkeleton";

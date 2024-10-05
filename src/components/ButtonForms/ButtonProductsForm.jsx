@@ -6,14 +6,14 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "./ui";
+} from "../ui";
 import { Plus } from "lucide-react";
-import { useCategory } from "@/hooks/useCategory";
 import { FormProvider } from "react-hook-form";
-import { CategoryForm } from "./Forms/CategoryForm";
+import { useProduct } from "@/hooks/useProduct";
+import { ProductForm } from "../Forms/ProductForm";
 
-export const ButtonCategoriesForm = ({ editData, setEditData }) => {
-  const { isDialogOpen, setIsDialogOpen, methods, handleSubmit } = useCategory(
+export const ButtonProductsForm = ({ editData, setEditData }) => {
+  const { isDialogOpen, setIsDialogOpen, methods, handleSubmit } = useProduct(
     editData,
     setEditData
   );
@@ -23,18 +23,18 @@ export const ButtonCategoriesForm = ({ editData, setEditData }) => {
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
           <Button variant="outline" onClick={() => setIsDialogOpen(true)}>
-            <Plus /> Añadir Categoria
+            <Plus /> Añadir Producto
           </Button>
         </DialogTrigger>
-        <DialogContent>
+        <DialogContent className="w-full max-w-4xl">
           <DialogHeader>
             <DialogTitle>
-              {editData ? "Editar Categoria" : "Agregar Nueva Categoria"}
+              {editData ? "Editar Producto" : "Agregar Nuevo Producto"}
             </DialogTitle>
           </DialogHeader>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit}>
-              <CategoryForm />
+              <ProductForm />
               <DialogFooter>
                 <Button type="submit">Guardar Cambios</Button>
               </DialogFooter>
