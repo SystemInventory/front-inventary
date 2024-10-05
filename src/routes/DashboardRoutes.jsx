@@ -1,5 +1,12 @@
 import { DashboardLayout } from "@/layout/DashboardLayout";
-import {PersonnelPage, SuppliersPage, KardexPage, ProductsPage, CategoryPage, DashboardPage} from "@/pages";
+import {
+  PersonnelPage,
+  SuppliersPage,
+  KardexPage,
+  ProductsPage,
+  CategoryPage,
+  DashboardPage,
+} from "@/pages";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 export const DashboardRoutes = () => {
