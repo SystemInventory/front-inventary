@@ -5,11 +5,11 @@ import { InputSearch } from "@/components/common/InputSearch";
 import { ButtonKardexForm } from "@/components/ButtonForms/ButtonKardexForm";
 import { TableSkeleton } from "@/components/common/Skeleton/TableSkeleton";
 import { KardexTable } from "@/components/Tables/KardexTable";
-import { headers } from "@/utils/getHeaderCategory";
+import { headers } from "@/utils/headers/getHeaderCategory";
 import { ContainerLayout } from "@/layout/ContainerLayout";
 
 export const KardexPage = () => {
-  const { kardex, isLoading ,handleDelete} = useKardex();
+  const { kardex, isLoading, handleDelete } = useKardex();
   const [editData, setEditData] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const { itemFilter } = getFilter(kardex, searchTerm);

@@ -7,11 +7,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/index.js";
-import { useCategoryStore } from "@/stores/useCategoryStore.js";
 import { SquarePen, Trash2 } from "lucide-react";
 
-export const CategoriesTable = ({ setEditData, categories }) => {
-  const deleteCategory = useCategoryStore((state) => state.deleteCategory);
+export const CategoriesTable = ({ setEditData, categories, handleDelete }) => {
   return (
     <div className="overflow-hidden">
       <Table className="min-w-full divide-y divide-gray-200">
@@ -28,7 +26,7 @@ export const CategoriesTable = ({ setEditData, categories }) => {
             <TableRow key={category.id}>
               <TableCell>{category.name}</TableCell>
               <TableCell>{category.description}</TableCell>
-              <TableCell>{category.isActive ? "Activo":"Inactivo"}</TableCell>
+              <TableCell>{category.isActive ? "Activo" : "Inactivo"}</TableCell>
               <TableCell>
                 <Button variant="outline" onClick={() => setEditData(category)}>
                   <SquarePen />
@@ -36,7 +34,7 @@ export const CategoriesTable = ({ setEditData, categories }) => {
                 </Button>
                 <Button
                   variant="outline"
-                  onClick={() => deleteCategory(category.id)}
+                  onClick={() => handleDelete(category.id)}
                 >
                   <Trash2 color="red" />
                   <span className="hidden sm:inline">Eliminar</span>

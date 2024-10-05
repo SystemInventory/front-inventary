@@ -5,11 +5,11 @@ import { CategoriesTable } from "@/components/Tables/CategoriesTable.jsx";
 import { useCategory } from "@/hooks/useCategory";
 import { ContainerLayout } from "@/layout/ContainerLayout";
 import { getFilter } from "@/utils/getFilter";
-import { headers } from "@/utils/getHeaderCategory";
+import { headers } from "@/utils/headers/getHeaderCategory";
 import { useState } from "react";
 
 export const CategoryPage = () => {
-  const { categories, isLoading } = useCategory();
+  const { categories, isLoading,handleDelete } = useCategory();
   const [editData, setEditData] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -23,7 +23,7 @@ export const CategoryPage = () => {
       {isLoading ? (
         <TableSkeleton headers={headers} />
       ) : (
-        <CategoriesTable categories={categories} setEditData={setEditData} />
+        <CategoriesTable categories={categories} setEditData={setEditData} handleDelete={handleDelete} />
       )}
     </ContainerLayout>
   );

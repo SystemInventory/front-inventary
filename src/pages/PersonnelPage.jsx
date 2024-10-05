@@ -5,11 +5,11 @@ import { TableSkeleton } from "@/components/common/Skeleton/TableSkeleton";
 import { usePersonnel } from "@/hooks/usePersonnel";
 import { getFilter } from "@/utils/getFilter";
 import { useState } from "react";
-import { headers } from "@/utils/getHeaderCategory";
+import { headers } from "@/utils/headers/getHeaderCategory";
 import { ContainerLayout } from "@/layout/ContainerLayout";
 
 export const PersonnelPage = () => {
-  const { personal, isLoading } = usePersonnel();
+  const { personal, isLoading ,handleDelete} = usePersonnel();
   const [editData, setEditData] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const { itemFilter } = getFilter(personal, searchTerm);
@@ -27,6 +27,7 @@ export const PersonnelPage = () => {
         <TableInformation
           personal={searchTerm ? itemFilter : personal}
           setEditData={setEditData}
+          handleDelete={handleDelete}
         />
       )}
     </ContainerLayout>

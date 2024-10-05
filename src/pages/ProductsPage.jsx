@@ -6,8 +6,8 @@ import { CardProductSkeleton } from "@/components/common/Skeleton/CardProductSke
 import { ContainerLayout } from "@/layout/ContainerLayout";
 
 export const ProductsPage = () => {
-  const [editData, setEditData] = useState(null);
-  const { product, isLoading } = useProduct();
+  const [editData, setEditData,] = useState(null);
+  const { product, isLoading ,handleDelete} = useProduct();
 
   return (
     <ContainerLayout>
@@ -17,7 +17,7 @@ export const ProductsPage = () => {
       {isLoading ? (
         <CardProductSkeleton />
       ) : (
-        <GridProducts product={product} setEditData={setEditData} />
+        <GridProducts product={product} setEditData={setEditData} handleDelete={handleDelete} />
       )}
     </ContainerLayout>
   );

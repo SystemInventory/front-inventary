@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { productFormSchema } from "@/lib/zod-validations/productFormSchema";
+import Swal from "sweetalert2";
+import { Toast } from "@/utils/Toast";
 
 export const useProduct = (editData, setEditData) => {
   const product = useProductStore((state) => state.product);
@@ -56,13 +58,36 @@ export const useProduct = (editData, setEditData) => {
     }
     reset();
     setIsDialogOpen(false);
+    Toast.fire({
+      icon: "success",
+      title: "Operación realizada con éxito",
+    });
   };
-
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "¡No podrás revertir esto!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, ¡elimínalo!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteProduct(id);
+        Swal.fire({
+          title: "¡Eliminado!",
+          text: "El registro ha sido eliminado.",
+          icon: "success",
+        });
+      }
+    });
+  };
   return {
     setIsDialogOpen,
     isLoading,
     isDialogOpen,
-    deleteProduct,
+    deleteProduct,handleDelete,
     editProduct,
     addProduct,
     product,

@@ -5,11 +5,11 @@ import { TableSkeleton } from "@/components/common/Skeleton/TableSkeleton";
 import { useSupplier } from "@/hooks/useSupplier";
 import { getFilter } from "@/utils/getFilter";
 import { useState } from "react";
-import { headers } from "@/utils/getHeaderCategory";
+import { headers } from "@/utils/headers/getHeaderCategory";
 import { ContainerLayout } from "@/layout/ContainerLayout";
 
 export const SuppliersPage = () => {
-  const { suppliers, isLoading } = useSupplier();
+  const { suppliers, isLoading, handleDelete } = useSupplier();
   const [editData, setEditData] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -23,7 +23,11 @@ export const SuppliersPage = () => {
       {isLoading ? (
         <TableSkeleton headers={headers} />
       ) : (
-        <SuppliersTable suppliers={suppliers} setEditData={setEditData} />
+        <SuppliersTable
+          suppliers={suppliers}
+          setEditData={setEditData}
+          handleDelete={handleDelete}
+        />
       )}
     </ContainerLayout>
   );

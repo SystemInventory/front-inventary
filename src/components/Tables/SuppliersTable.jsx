@@ -8,10 +8,8 @@ import {
   TableRow,
 } from "../ui";
 import { SquarePen, Trash2 } from "lucide-react";
-import { useSupplierStore } from "@/stores/useSupplierStore";
 
-export const SuppliersTable = ({ suppliers, setEditData }) => {
-  const deleteSupplier = useSupplierStore((state) => state.deleteSupplier);
+export const SuppliersTable = ({ suppliers, setEditData,handleDelete }) => {
   return (
     <div className="overflow-hidden">
       <Table className="min-w-full divide-y divide-gray-200">
@@ -40,7 +38,7 @@ export const SuppliersTable = ({ suppliers, setEditData }) => {
                 </Button>
                 <Button
                   variant="outline"
-                  onClick={() => deleteSupplier(suppier.id)}
+                  onClick={() => handleDelete(suppier.id)}
                 >
                   <Trash2 color="red" />
                   <span className="hidden sm:inline">Eliminar</span>
