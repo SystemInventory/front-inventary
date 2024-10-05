@@ -4,7 +4,7 @@ import { create } from "zustand";
 export const useSupplierStore = create((set) => ({
   supplier: supplier,
   addSupplier: (newSupplier) =>
-    set((state) => ({ supplier: [...state.supplier, newSupplier] })),
+    set((state) => ({ supplier: [newSupplier, ...state.supplier] })),
   editSupplier: (updateSupplier) =>
     set((state) => ({
       supplier: state.supplier.map((person) =>
