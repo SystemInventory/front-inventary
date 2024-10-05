@@ -9,7 +9,7 @@ import { headers } from "@/utils/getHeaderCategory";
 import { ContainerLayout } from "@/layout/ContainerLayout";
 
 export const KardexPage = () => {
-  const { kardex, isLoading } = useKardex();
+  const { kardex, isLoading ,handleDelete} = useKardex();
   const [editData, setEditData] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const { itemFilter } = getFilter(kardex, searchTerm);
@@ -26,6 +26,7 @@ export const KardexPage = () => {
         <KardexTable
           kardex={itemFilter.length > 0 ? itemFilter : kardex}
           setEditData={setEditData}
+          handleDelete={handleDelete}
         />
       )}
     </ContainerLayout>

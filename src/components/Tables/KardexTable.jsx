@@ -12,8 +12,7 @@ import { suppliers } from "@/data/suppliers";
 import { personal } from "@/data/personal";
 import { SquarePen, Trash2 } from "lucide-react";
 
-export const KardexTable = ({ kardex, setEditData }) => {
-  const { deleteKardex } = useKardex();
+export const KardexTable = ({ kardex, setEditData,handleDelete }) => {
 
   const getSupplierName = (supplierId) => {
     const supplier = suppliers.find((supplier) => supplier.id === supplierId);
@@ -57,7 +56,7 @@ export const KardexTable = ({ kardex, setEditData }) => {
                 <Button variant="outline" onClick={() => setEditData(item)}>
                   <SquarePen />
                 </Button>
-                <Button variant="outline" onClick={() => deleteKardex(item.id)}>
+                <Button variant="outline" onClick={() => handleDelete(item.id)}>
                   <Trash2 color="red" />
                 </Button>
               </TableCell>
