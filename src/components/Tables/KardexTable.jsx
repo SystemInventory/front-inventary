@@ -1,4 +1,3 @@
-import { useKardex } from "@/hooks/useKardex";
 import {
   Button,
   Table,
@@ -8,12 +7,13 @@ import {
   TableHeader,
   TableRow,
 } from "../ui";
-import { suppliers } from "@/data/suppliers";
+
 import { personal } from "@/data/personal";
+import { useSupplier } from "@/hooks/useSupplier";
 import { SquarePen, Trash2 } from "lucide-react";
 
-export const KardexTable = ({ kardex, setEditData,handleDelete }) => {
-
+export const KardexTable = ({ kardex, setEditData, handleDelete }) => {
+  const { suppliers } = useSupplier();
   const getSupplierName = (supplierId) => {
     const supplier = suppliers.find((supplier) => supplier.id === supplierId);
     return supplier ? supplier.name : "Desconocido";
@@ -23,7 +23,6 @@ export const KardexTable = ({ kardex, setEditData,handleDelete }) => {
     const user = personal.find((user) => user.id === userId);
     return user ? user.name : "Desconocido";
   };
-
 
   return (
     <div className="overflow-hidden">

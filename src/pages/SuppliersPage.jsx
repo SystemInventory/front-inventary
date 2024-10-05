@@ -12,7 +12,7 @@ export const SuppliersPage = () => {
   const { suppliers, isLoading, handleDelete } = useSupplier();
   const [editData, setEditData] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-
+  console.log("Datos de proveedores en SuppliersPage:", suppliers);
   return (
     <ContainerLayout>
       <div className="flex justify-between ">

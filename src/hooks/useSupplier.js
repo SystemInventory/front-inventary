@@ -1,4 +1,5 @@
 import { suppliersFormSchema } from "@/lib/zod-validations/suppliersFormSchema";
+import { createSupplier, fillAllSuppliers, removeSupplier } from "@/services/suppliers.service";
 import { useSupplierStore } from "@/stores/useSupplierStore";
 import { Toast } from "@/utils/Toast";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,9 +15,14 @@ export const useSupplier = (editData, setEditData) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    setTimeout(() => {
+    const fetchSuppliers = async () => {
+      const data = await fillAllSuppliers();
+      if (data) {
+        useSupplierStore.setState({ supplier: data }); 
+      }
       setIsLoading(false);
-    }, 2000);
+    };
+    fetchSuppliers();
   }, []);
   const methods = useForm({
     resolver: zodResolver(suppliersFormSchema),
@@ -34,7 +40,7 @@ export const useSupplier = (editData, setEditData) => {
     }
   }, [editData, setValue]);
 
-  const onSubmit = (data) => {
+  const onSubmit =async (data) => {
     if (editData) {
       editSupplier({ ...data, id: editData.id });
       setEditData(null);
@@ -43,7 +49,8 @@ export const useSupplier = (editData, setEditData) => {
         title: "Proveedor actualizado con éxito",
       });
     } else {
-      const newSupplier = { ...data, id: Date.now() };
+
+      const newSupplier = await createSupplier(data);
       addSupplier(newSupplier);
       console.log(newSupplier);
       Toast.fire({
@@ -54,6 +61,7 @@ export const useSupplier = (editData, setEditData) => {
     reset();
     setIsDialogOpen(false);
   };
+
   const handleDelete = (id) => {
     Swal.fire({
       title: "¿Estás seguro?",
@@ -63,18 +71,28 @@ export const useSupplier = (editData, setEditData) => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Sí, ¡elimínalo!",
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        deleteSupplier(id);
-        Swal.fire({
-          title: "¡Eliminado!",
-          text: "El registro ha sido eliminado.",
-          icon: "success",
-        });
+        try {
+          await deleteSupplier(id); 
+          removeSupplier(id); 
+          Swal.fire({
+            title: "¡Eliminado!",
+            text: "El registro ha sido eliminado.",
+            icon: "success",
+          });
+        } catch (error) {
+          console.error("Error al eliminar el proveedor:", error);
+          Swal.fire({
+            title: "Error",
+            text: "No se pudo eliminar el proveedor.",
+            icon: "error",
+          });
+        }
       }
     });
   };
-
+  
   return {
     addSupplier,
     editSupplier,

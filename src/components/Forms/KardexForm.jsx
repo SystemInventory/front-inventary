@@ -1,7 +1,6 @@
 import { useFormContext } from "react-hook-form";
 import { FormControl, FormItem, FormLabel, FormMessage, Input } from "../ui";
 import { personal } from "@/data/personal";
-import { suppliers } from "@/data/suppliers";
 import { product } from "@/data/product";
 import {
   Select,
@@ -10,8 +9,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { useSupplier } from "@/hooks/useSupplier";
 
 export const KardexForm = () => {
+  const {suppliers} = useSupplier()
   const {
     register,
     formState: { errors },
