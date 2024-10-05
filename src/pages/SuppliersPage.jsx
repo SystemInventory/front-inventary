@@ -5,7 +5,7 @@ import { TableSkeleton } from "@/components/common/Skeleton/TableSkeleton";
 import { useSupplier } from "@/hooks/useSupplier";
 import { getFilter } from "@/utils/getFilter";
 import { useState } from "react";
-import { headers } from "@/utils/headers/getHeaderCategory";
+import { headers } from "@/utils/headers/getHeaderPersonell";
 import { ContainerLayout } from "@/layout/ContainerLayout";
 
 export const SuppliersPage = () => {

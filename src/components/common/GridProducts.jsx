@@ -42,7 +42,7 @@ export const GridProducts = ({ product, setEditData ,handleDelete}) => {
             </div>
             <span className="font-semibold">{item.description}</span>
             <div className="flex justify-between">
-              <span className="font-semibold">${item.price}</span>
+              <span className="font-semibold">S/.{item.price}</span>
               <span>{item.units} unidades</span>
             </div>
           </CardContent>

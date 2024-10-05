@@ -5,7 +5,7 @@ import { InputSearch } from "@/components/common/InputSearch";
 import { ButtonKardexForm } from "@/components/ButtonForms/ButtonKardexForm";
 import { TableSkeleton } from "@/components/common/Skeleton/TableSkeleton";
 import { KardexTable } from "@/components/Tables/KardexTable";
-import { headers } from "@/utils/headers/getHeaderCategory";
+import { headers } from "@/utils/headers/getHeaderKardex";
 import { ContainerLayout } from "@/layout/ContainerLayout";
 
 export const KardexPage = () => {
