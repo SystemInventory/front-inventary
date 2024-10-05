@@ -1,40 +1,27 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  Button,
-} from "@/components/ui";
+import { useKardex } from "@/hooks/useKardex";
+import { Button, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui";
 import { Plus } from "lucide-react";
-import { usePersonnel } from "@/hooks/usePersonnel";
-import { PersonalForm } from "./Forms/PersonalForm";
 import { FormProvider } from "react-hook-form";
+import { KardexForm } from "../Forms/KardexForm";
 
-export const ButtonForm = ({ editData, setEditData }) => {
-  const { isDialogOpen, setIsDialogOpen, methods, handleSubmit } = usePersonnel(
-    editData,
-    setEditData
-  );
+export const ButtonKardexForm = ({ editData, setEditData }) => {
+  const { isDialogOpen, setIsDialogOpen, methods, handleSubmit } = useKardex(editData, setEditData);
 
   return (
     <div className="flex justify-end mb-4">
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
           <Button variant="outline" onClick={() => setIsDialogOpen(true)}>
-            <Plus /> Añadir Personal
+            <Plus /> Añadir Kardex
           </Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>
-              {editData ? "Editar Personal" : "Agregar Nuevo Personal"}
-            </DialogTitle>
+            <DialogTitle>{editData ? "Editar Kardex" : "Agregar Nuevo Kardex"}</DialogTitle>
           </DialogHeader>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit}>
-              <PersonalForm />
+              <KardexForm />
               <DialogFooter>
                 <Button type="submit">Guardar Cambios</Button>
               </DialogFooter>

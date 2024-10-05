@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { FloatingMenu } from "@/components/FloatingMenu.jsx/FloatingMenu";
+import { FloatingMenu } from "@/components/common/FloatingMenu";
 import { Header } from "./Header";
 
 export const DashboardLayout = () => {

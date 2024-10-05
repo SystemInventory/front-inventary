@@ -1,27 +1,39 @@
-import { useKardex } from "@/hooks/useKardex";
-import { Button, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "./ui";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  Button,
+} from "../ui";
 import { Plus } from "lucide-react";
+import { useSupplier } from "@/hooks/useSupplier";
+import { SupplierForm } from "../Forms/SupplierForm";
 import { FormProvider } from "react-hook-form";
-import { KardexForm } from "./Forms/KardexForm";
 
-export const ButtonKardexForm = ({ editData, setEditData }) => {
-  const { isDialogOpen, setIsDialogOpen, methods, handleSubmit } = useKardex(editData, setEditData);
-
+export const ButtonSupplierForm = ({ editData, setEditData }) => {
+  const { isDialogOpen, setIsDialogOpen, methods, handleSubmit } = useSupplier(
+    editData,
+    setEditData
+  );
   return (
     <div className="flex justify-end mb-4">
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
           <Button variant="outline" onClick={() => setIsDialogOpen(true)}>
-            <Plus /> Añadir Kardex
+            <Plus /> Añadir Proveedor
           </Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>{editData ? "Editar Kardex" : "Agregar Nuevo Kardex"}</DialogTitle>
+            <DialogTitle>
+              {editData ? "Editar Proveedor" : "Agregar Nuevo Proveedor"}
+            </DialogTitle>
           </DialogHeader>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit}>
-              <KardexForm />
+              <SupplierForm />
               <DialogFooter>
                 <Button type="submit">Guardar Cambios</Button>
               </DialogFooter>

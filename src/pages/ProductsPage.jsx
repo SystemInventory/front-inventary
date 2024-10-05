@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { ButtonProductsForm } from "@/components/ButtonProductsForm";
-import { GridProducts } from "@/components/GridProducts";
+import { ButtonProductsForm } from "@/components/ButtonForms/ButtonProductsForm";
+import { GridProducts } from "@/components/common/GridProducts";
 import { useProduct } from "@/hooks/useProduct";
-import { CardProductSkeleton } from "@/components/common/CardProductSkeleton";
+import { CardProductSkeleton } from "@/components/common/Skeleton/CardProductSkeleton";
 
 export const ProductsPage = () => {
   const [editData, setEditData] = useState(null);

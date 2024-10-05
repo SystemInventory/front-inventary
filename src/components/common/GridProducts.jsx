@@ -1,5 +1,5 @@
 import { useProduct } from "@/hooks/useProduct";
-import { Badge, Button, Card, CardContent, CardFooter, CardHeader } from "./ui";
+import { Badge, Button, Card, CardContent, CardFooter, CardHeader } from "../ui";
 import { SquarePen, Trash2 } from "lucide-react";
 
 export const GridProducts = ({ product, setEditData }) => {

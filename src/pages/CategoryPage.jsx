@@ -1,6 +1,6 @@
-import { ButtonCategoriesForm } from "@/components/ButtonCategoriesForm";
+import { ButtonCategoriesForm } from "@/components/ButtonForms/ButtonCategoriesForm";
 import { InputSearch } from "@/components/common/InputSearch";
-import { TableSkeleton } from "@/components/common/TableSkeleton";
+import { TableSkeleton } from "@/components/common/Skeleton/TableSkeleton";
 import { CategoriesTable } from "@/components/Tables/CategoriesTable.jsx";
 import { useCategory } from "@/hooks/useCategory";
 import { getFilter } from "@/utils/getFilter";
@@ -10,7 +10,12 @@ export const CategoryPage = () => {
   const { categories, isLoading } = useCategory();
   const [editData, setEditData] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  
+  const headers = [
+    { label: "Nombre" },
+    { label: "Descripcion" },
+    { label: "Status" },
+    { label: "Acciones" },
+  ];
   return (
     <div className="container mx-auto px-4">
       <div className="flex justify-between text-center">
@@ -19,12 +24,9 @@ export const CategoryPage = () => {
       </div>
 
       {isLoading ? (
-        <TableSkeleton />
+        <TableSkeleton headers={headers} />
       ) : (
-        <CategoriesTable
-          categories={categories }
-          setEditData={setEditData}
-        />
+        <CategoriesTable categories={categories} setEditData={setEditData} />
       )}
     </div>
   );
