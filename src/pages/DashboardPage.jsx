@@ -1,15 +1,15 @@
 import { CategoryStats } from "@/components/Home/CategoryStats";
 import { InventoryStats } from "@/components/Home/InventoryStats";
-import { UpcomingExpirations } from "@/components/Home/UpcomingExpirations";
 
 export const DashboardPage = () => {
-    return (
-        <div className="gap-32 max-sm:gap-9 sm:gap-9 md:gap-20 flex mx-auto justify-center flex-wrap">
-          <CategoryStats />
-          <div className="flex flex-col gap-4 items-center w-full md:w-[40%]">
-            <InventoryStats />
-            <UpcomingExpirations />
-          </div>
-        </div>
-      );
-}
+  return (
+    <div className=" h-full gap-2 flex flex-col">
+      <div className="flex flex-wrap">
+        <CategoryStats />
+      </div>
+      <div className="flex flex-col flex-grow overflow-y-auto">
+        <InventoryStats />
+      </div>
+    </div>
+  );
+};
