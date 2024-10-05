@@ -38,17 +38,21 @@ export const useCategory = (editData, setEditData) => {
     if (editData) {
       editCategory({ ...data, id: editData.id });
       setEditData(null);
+      Toast.fire({
+        icon: "success",
+        title: "Categoria actualizada con éxito",
+      });
     } else {
       const newCategory = { ...data, id: Date.now() };
       addCategory(newCategory);
-      console.log(newCategory);
+      console.log(newCategory)
+      Toast.fire({
+        icon: "success",
+        title: "Categoria creada con éxito",
+      });
     }
     reset();
     setIsDialogOpen(false);
-    Toast.fire({
-      icon: "success",
-      title: "Operación realizada con éxito",
-    });
   };
 
   const handleDelete = (id) => {

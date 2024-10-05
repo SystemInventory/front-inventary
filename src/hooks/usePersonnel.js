@@ -39,17 +39,21 @@ export const usePersonnel = (editData, setEditData) => {
     if (editData) {
       editPersonal({ ...data, id: editData.id });
       setEditData(null);
+      Toast.fire({
+        icon: "success",
+        title: "Personal actualizado con éxito",
+      });
     } else {
       const newPersonal = { ...data, id: Date.now() };
       addPersonal(newPersonal);
       console.log(newPersonal);
+      Toast.fire({
+        icon: "success",
+        title: "Personal creado con éxito",
+      });
     }
     reset();
     setIsDialogOpen(false);
-    Toast.fire({
-      icon: "success",
-      title: "Operación realizada con éxito",
-    });
   };
   const handleDelete = (id) => {
     Swal.fire({

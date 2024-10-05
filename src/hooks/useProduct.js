@@ -51,17 +51,21 @@ export const useProduct = (editData, setEditData) => {
       };
       editProduct(updatedProduct);
       setEditData(null);
+      Toast.fire({
+        icon: "success",
+        title: "Producto actualizado con éxito",
+      });
     } else {
       const newProduct = { ...data, id: Date.now() };
       addProduct(newProduct);
       console.log("Producto creado:", newProduct); 
+      Toast.fire({
+        icon: "success",
+        title: "Producto creado con éxito",
+      });
     }
     reset();
     setIsDialogOpen(false);
-    Toast.fire({
-      icon: "success",
-      title: "Operación realizada con éxito",
-    });
   };
   const handleDelete = (id) => {
     Swal.fire({

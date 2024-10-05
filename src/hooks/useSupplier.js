@@ -38,17 +38,21 @@ export const useSupplier = (editData, setEditData) => {
     if (editData) {
       editSupplier({ ...data, id: editData.id });
       setEditData(null);
+      Toast.fire({
+        icon: "success",
+        title: "Proveedor actualizado con éxito",
+      });
     } else {
       const newSupplier = { ...data, id: Date.now() };
       addSupplier(newSupplier);
       console.log(newSupplier);
+      Toast.fire({
+        icon: "success",
+        title: "Proveedor creado con éxito",
+      });
     }
     reset();
     setIsDialogOpen(false);
-    Toast.fire({
-      icon: "success",
-      title: "Operación realizada con éxito",
-    });
   };
   const handleDelete = (id) => {
     Swal.fire({

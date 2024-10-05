@@ -45,18 +45,22 @@ export const useKardex = (editData, setEditData) => {
     if (editData) {
       editKardex({ ...data, id: editData.id });
       setEditData(null);
+      Toast.fire({
+        icon: "success",
+        title: "Kardex actualizado con éxito",
+      });
     } else {
       const newKardex = { ...data, id: Date.now() };
       addKardex(newKardex);
       console.log(newKardex);
+      Toast.fire({
+        icon: "success",
+        title: "Kardex creado con éxito",
+      });
     }
     reset();
     setIsDialogOpen(false);
 
-    Toast.fire({
-      icon: "success",
-      title: "Operación realizada con éxito",
-    });
   };
 
   const handleDelete = (id) => {
