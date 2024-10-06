@@ -1,5 +1,5 @@
 import { suppliersFormSchema } from "@/lib/zod-validations/suppliersFormSchema";
-import { createSupplier, fillAllSuppliers, removeSupplier } from "@/services/suppliers.service";
+import { createSupplier, fillAllSuppliers, removeSupplier, updateSupplier } from "@/services/suppliers.service";
 import { useSupplierStore } from "@/stores/useSupplierStore";
 import { Toast } from "@/utils/Toast";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -42,7 +42,8 @@ export const useSupplier = (editData, setEditData) => {
 
   const onSubmit =async (data) => {
     if (editData) {
-      editSupplier({ ...data, id: editData.id });
+      const updatedSupplier = await updateSupplier(editData.id, data);
+      editSupplier(updatedSupplier);
       setEditData(null);
       Toast.fire({
         icon: "success",

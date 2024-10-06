@@ -8,7 +8,6 @@ import {
   TableHeader,
   TableRow,
 } from "../ui";
-import { usePersonnel } from "@/hooks/usePersonnel";
 
 export const TableInformation = ({ personal, setEditData,handleDelete }) => {
   return (

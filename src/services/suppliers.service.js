@@ -23,15 +23,17 @@ export const removeSupplier = async(id)=>{
   try {
     await axios.delete(`${API}/suppliers/${id}`)
   } catch (error) {
-    console.log("Error al eliminar usuario",error)
+    console.log("Error al eliminar a proveedor",error)
     throw error;
   }
 }
-// export const fillAllById = async (id) => {
-//   try {
-//     const { data } = await axios.get(`${API+ baseURL}/${id}`);
-//     return data;
-//   } catch (error) {
-//     console.error(`Error al traer supplier id : ${id} `, error);
-//   }
-// };
+
+export const updateSupplier = async(id,supplier) =>{
+  try {
+    const {data} = await axios.put(`${API}/suppliers/${id}`,supplier)
+    return data;
+  } catch (error) {
+    console.error("Error al actualizar a proveedor",supplier)
+    throw error;
+  }
+}

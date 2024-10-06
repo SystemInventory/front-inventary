@@ -1,7 +1,6 @@
 import { create } from "zustand";
-import { personal } from "@/data/personal";
 export const usePersonnelStore = create((set) => ({
-  personal: personal,
+  personal: [],
   addPersonal: (newPersonal) =>
     set((state) => ({
       personal: [newPersonal,...state.personal ],

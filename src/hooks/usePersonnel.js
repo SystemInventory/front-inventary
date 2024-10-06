@@ -1,4 +1,5 @@
 import { schema } from "@/lib/zod-validations/dataFormSchema";
+import { createPersonell, fillAllPersonell, removePersonell, updatePersonell } from "@/services/personall.service";
 import { usePersonnelStore } from "@/stores/usePersonnelStore";
 import { Toast } from "@/utils/Toast";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,11 +14,15 @@ export const usePersonnel = (editData, setEditData) => {
   const deletePersonal = usePersonnelStore((state) => state.deletePersonal);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    setTimeout(() => {
+    const fetchPersonell = async () => {
+      const data = await fillAllPersonell();
+      if (data) {
+        usePersonnelStore.setState({ personal: data });
+      }
       setIsLoading(false);
-    }, 2000);
+    };
+    fetchPersonell();
   }, []);
-
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const methods = useForm({
     resolver: zodResolver(schema),
@@ -35,16 +40,18 @@ export const usePersonnel = (editData, setEditData) => {
     }
   }, [editData, setValue]);
 
-  const onSubmit = (data) => {
+  const onSubmit = async(data) => {
     if (editData) {
-      editPersonal({ ...data, id: editData.id });
+      const updatePersonall = await updatePersonell(editData.id,data)
+      editPersonal(updatePersonall);
       setEditData(null);
       Toast.fire({
         icon: "success",
         title: "Personal actualizado con éxito",
       });
     } else {
-      const newPersonal = { ...data, id: Date.now() };
+  
+      const newPersonal = await createPersonell(data);
       addPersonal(newPersonal);
       console.log(newPersonal);
       Toast.fire({
@@ -64,14 +71,24 @@ export const usePersonnel = (editData, setEditData) => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Sí, ¡elimínalo!",
-    }).then((result) => {
+    }).then(async(result) => {
       if (result.isConfirmed) {
-        deletePersonal(id);
-        Swal.fire({
-          title: "¡Eliminado!",
-          text: "El registro ha sido eliminado.",
-          icon: "success",
-        });
+        try {
+          await deletePersonal(id); 
+          removePersonell(id); 
+          Swal.fire({
+            title: "¡Eliminado!",
+            text: "El registro ha sido eliminado.",
+            icon: "success",
+          });
+        } catch (error) {
+          console.error("Error al eliminar el proveedor:", error);
+          Swal.fire({
+            title: "Error",
+            text: "No se pudo eliminar el proveedor.",
+            icon: "error",
+          });
+        }
       }
     });
   };

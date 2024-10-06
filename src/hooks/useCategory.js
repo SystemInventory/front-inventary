@@ -1,4 +1,5 @@
 import { categoriesFormSchema } from "@/lib/zod-validations/categoriesFormSchema";
+import { createCategory, fillAllCategories, removeCategory, updateCategory } from "@/services/category.service";
 import { useCategoryStore } from "@/stores/useCategoryStore";
 import { Toast } from "@/utils/Toast";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,9 +16,14 @@ export const useCategory = (editData, setEditData) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => {
+    const fetchCategory = async () => {
+      const data = await fillAllCategories();
+      if (data) {
+        useCategoryStore.setState({ categories: data }); 
+      }
       setIsLoading(false);
-    }, 2000);
+    };
+    fetchCategory();
   }, []);
   const methods = useForm({
     resolver: zodResolver(categoriesFormSchema),
@@ -34,16 +40,17 @@ export const useCategory = (editData, setEditData) => {
     }
   }, [editData, setValue]);
 
-  const onSubmit = (data) => {
+  const onSubmit = async(data) => {
     if (editData) {
-      editCategory({ ...data, id: editData.id });
+      const updatedCategory = await updateCategory(editData.id, data);
+      editCategory(updatedCategory);
       setEditData(null);
       Toast.fire({
         icon: "success",
         title: "Categoria actualizada con éxito",
       });
     } else {
-      const newCategory = { ...data, id: Date.now() };
+      const newCategory = await createCategory(data);
       addCategory(newCategory);
       console.log(newCategory)
       Toast.fire({
@@ -64,14 +71,24 @@ export const useCategory = (editData, setEditData) => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Sí, ¡elimínalo!",
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        deleteCategory(id);
-        Swal.fire({
-          title: "¡Eliminado!",
-          text: "El registro ha sido eliminado.",
-          icon: "success",
-        });
+        try {
+          await deleteCategory(id); 
+          removeCategory(id); 
+          Swal.fire({
+            title: "¡Eliminado!",
+            text: "El registro ha sido eliminado.",
+            icon: "success",
+          });
+        } catch (error) {
+          console.error("Error al eliminar el proveedor:", error);
+          Swal.fire({
+            title: "Error",
+            text: "No se pudo eliminar el proveedor.",
+            icon: "error",
+          });
+        }
       }
     });
   };
