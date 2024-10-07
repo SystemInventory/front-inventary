@@ -31,6 +31,7 @@ export const removeSupplier = async(id)=>{
 export const updateSupplier = async(id,supplier) =>{
   try {
     const {data} = await axios.put(`${API}/suppliers/${id}`,supplier)
+    console.log(data)
     return data;
   } catch (error) {
     console.error("Error al actualizar a proveedor",supplier)

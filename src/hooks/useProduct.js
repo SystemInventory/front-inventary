@@ -5,7 +5,11 @@ import { useForm } from "react-hook-form";
 import { productFormSchema } from "@/lib/zod-validations/productFormSchema";
 import Swal from "sweetalert2";
 import { Toast } from "@/utils/Toast";
-import { createProduct, fillAllProducts, removeProduct } from "@/services/products.service";
+import {
+  createProduct,
+  fillAllProducts,
+  removeProduct,
+} from "@/services/products.service";
 
 export const useProduct = (editData, setEditData) => {
   const product = useProductStore((state) => state.product);
@@ -16,7 +20,7 @@ export const useProduct = (editData, setEditData) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchProduct= async () => {
+    const fetchProduct = async () => {
       const data = await fillAllProducts();
       if (data) {
         useProductStore.setState({ product: data });
@@ -33,45 +37,61 @@ export const useProduct = (editData, setEditData) => {
 
   useEffect(() => {
     if (editData) {
-      setValue("id", editData.id);
-      setValue("codigo", editData.codigo);
+      setValue("code", editData.code);
       setValue("nameProduct", editData.nameProduct);
-      setValue("category", editData.category);
+      setValue("categoryId", editData.categoryId);
       setValue("description", editData.description);
       setValue("price", editData.price);
       setValue("units", editData.units);
       setValue("isActive", editData.isActive);
-      setValue("imageUrl", editData.imageUrl);
+      setValue("image", editData.image);
       setIsDialogOpen(true);
     }
   }, [editData, setValue]);
 
-
-  const onSubmit = async(data) => {
-    console.log("onSubmit called with data:", data); 
-    if (editData) {
-      const updatedProduct = {
-        ...data,
-        id: editData.id,
-        imageUrl: data.imageUrl || editData.imageUrl,
-      };
-      editProduct(updatedProduct);
-      setEditData(null);
-      Toast.fire({
-        icon: "success",
-        title: "Producto actualizado con éxito",
-      });
-    } else {
-      const newProduct = await createProduct(data);
-      addProduct(newProduct);
-      console.log("Producto creado:", newProduct); 
-      Toast.fire({
-        icon: "success",
-        title: "Producto creado con éxito",
-      });
+  const onSubmit = async (data) => {
+    console.log("onSubmit called with data:", data);
+    
+    const formData = new FormData();
+    formData.append("nameProduct", data.nameProduct);
+    formData.append("code", data.code);
+    formData.append("categoryId", data.categoryId.toString()); 
+    formData.append("description", data.description);
+    formData.append("price", data.price.toString()); 
+    formData.append("units", data.units.toString()); 
+    formData.append("isActive", data.isActive.toString()); 
+    
+    if (data.image) {
+      formData.append("image", data.image);
     }
-    reset();
-    setIsDialogOpen(false);
+  
+    try {
+      if (editData) {
+        const updatedProduct = {
+          ...data,
+          id: editData.id,
+          image: data.image || editData.image,
+        };
+        await editProduct(updatedProduct);
+        setEditData(null);
+        Toast.fire({
+          icon: "success",
+          title: "Producto actualizado con éxito",
+        });
+      } else {
+        const newProduct = await createProduct(formData); 
+        addProduct(newProduct);
+        console.log("Producto creado:", newProduct);
+        Toast.fire({
+          icon: "success",
+          title: "Producto creado con éxito",
+        });
+      }
+      reset();
+      setIsDialogOpen(false);
+    } catch (error) {
+      console.error("Error al crear el producto", error);
+    }
   };
   const handleDelete = (id) => {
     Swal.fire({
@@ -82,11 +102,11 @@ export const useProduct = (editData, setEditData) => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Sí, ¡elimínalo!",
-    }).then(async(result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await deleteProduct(id); 
-          removeProduct(id); 
+          await deleteProduct(id);
+          removeProduct(id);
           Swal.fire({
             title: "¡Eliminado!",
             text: "El producto ha sido eliminado.",
@@ -107,13 +127,13 @@ export const useProduct = (editData, setEditData) => {
     setIsDialogOpen,
     isLoading,
     isDialogOpen,
-    deleteProduct,handleDelete,
+    deleteProduct,
+    handleDelete,
     editProduct,
     addProduct,
     product,
     methods,
     onSubmit,
     handleSubmit: handleSubmit(onSubmit),
-
   };
 };

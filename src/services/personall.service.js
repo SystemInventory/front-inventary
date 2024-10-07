@@ -13,7 +13,8 @@ export const fillAllPersonell = async () => {
 };
 export const createPersonell = async (personell) => {
   try {
-    const { data } = await axios.put(`${API}/users/${personell}`);
+    const { data } = await axios.post(`${API}/users`,personell);
+    console.log(data)
     return data;
   } catch (error) {
     console.log("Error al crear un nuevo personal", error);
@@ -33,6 +34,7 @@ export const removePersonell = async (id) => {
 export const updatePersonell = async (id,personell) =>{
      try {
         const {data} = await axios.put(`${API}/users/${id}`,personell)
+       console.log(data)
         return data;
      } catch (error) {
         console.error("Error al actualizar al personal",personell)

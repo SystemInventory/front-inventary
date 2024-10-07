@@ -24,7 +24,7 @@ export const ProductForm = () => {
     setValue,
     watch,
   } = useFormContext();
-  const [imageUrl, setImageUrl] = useState(null);
+  const [image, setImage] = useState(null);
 
   useEffect(() => {
     console.log("Categorías cargadas:", categories);
@@ -34,8 +34,8 @@ export const ProductForm = () => {
     const file = e.target.files[0];
     if (file) {
       const url = URL.createObjectURL(file);
-      setImageUrl(url);
-      setValue("imageUrl", file);
+      setImage(url);
+      setValue("image", file);
     }
   };
 
@@ -73,12 +73,12 @@ export const ProductForm = () => {
           </FormItem>
 
           <FormItem>
-            <FormLabel htmlFor="codigo">Codigo</FormLabel>
+            <FormLabel htmlFor="code">Codigo</FormLabel>
             <FormControl>
-              <Input id="codigo" {...register("codigo")} className="input" />
+              <Input id="code" {...register("code")} className="input" />
             </FormControl>
-            {errors.codigo && (
-              <FormMessage>{errors.codigo.message}</FormMessage>
+            {errors.code && (
+              <FormMessage>{errors.code.message}</FormMessage>
             )}
           </FormItem>
 
@@ -106,33 +106,28 @@ export const ProductForm = () => {
         </div>
         <div className="flex flex-col gap-6">
           <FormItem>
-            <FormLabel htmlFor="category">Categoría</FormLabel>
+            <FormLabel htmlFor="categoryId">Categoría</FormLabel>
             <FormControl>
               <Select
-                onValueChange={(value) => setValue("category", Number(value))}
-                value={selectedCategory} 
+                onValueChange={(value) => setValue("categoryId", parseInt(value))}
+               
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Seleccione una categoría">
-                    {selectedCategory
-                      ? categories.find((cat) => cat.id === selectedCategory)
-                          ?.name
-                      : "Seleccione una categoría"}
-                  </SelectValue>
+                  <SelectValue placeholder="Seleccione una categoría"/>                
                 </SelectTrigger>
                 <SelectContent>
                   {categories
                     .filter((category) => category.isActive)
                     .map((category) => (
-                      <SelectItem key={category.id} value={category.id}>
+                      <SelectItem key={category.id} value={category.id.toString()}>
                         {category.name}
                       </SelectItem>
                     ))}
                 </SelectContent>
               </Select>
             </FormControl>
-            {errors.category && (
-              <FormMessage>{errors.category.message}</FormMessage>
+            {errors.categoryId && (
+              <FormMessage>{errors.categoryId.message}</FormMessage>
             )}
           </FormItem>
 
@@ -165,26 +160,26 @@ export const ProductForm = () => {
           </FormItem>
 
           <FormItem>
-            <FormLabel htmlFor="imageUrl">Imagen</FormLabel>
+            <FormLabel htmlFor="image">Imagen</FormLabel>
             <FormControl>
               <Input
-                id="imageUrl"
-                name="imageUrl"
+                id="image"
+                name="image"
                 type="file"
                 onChange={handleImageChange}
                 className="input"
               />
             </FormControl>
-            {errors.imageUrl && (
-              <FormMessage>{errors.imageUrl.message}</FormMessage>
+            {errors.image && (
+              <FormMessage>{errors.image.message}</FormMessage>
             )}
           </FormItem>
         </div>
       </div>
       <div className="flex flex-col gap-6">
-        {imageUrl ? (
+        {image ? (
           <img
-            src={imageUrl}
+            src={image}
             alt="Selected"
             className="mt-2 w-full h-full object-cover"
           />

@@ -3,7 +3,9 @@ import { create } from "zustand";
 export const useProductStore = create((set) => ({
   product: [],
   addProduct: (newProduct) =>
-    set((state) => ({ product: [ newProduct,...state.product] })),
+    set((state) => ({ 
+      product: [newProduct,...state.product] 
+    })),
   editProduct: (updateProduct) =>
     set((state) => ({
       product: state.product.map((item) =>

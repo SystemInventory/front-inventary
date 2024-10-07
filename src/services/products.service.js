@@ -11,6 +11,16 @@ export const fillAllProducts = async () => {
     throw error;
   }
 };
+export const getProductById = async (id) => {
+  try {
+    const { data } = axios.get(`${API}/showFormForUpdate/${id}`);
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error("Error al traer el producto de id ", id);
+    throw error;
+  }
+};
 export const createProduct = async (product) => {
   try {
     const { data } = await axios.post(`${API}/products`, product, {
@@ -34,3 +44,4 @@ export const removeProduct = async (id) => {
     throw error;
   }
 };
+export const updateProduct = async (id, product) => {};
