@@ -82,10 +82,10 @@ export const useCategory = (editData, setEditData) => {
             icon: "success",
           });
         } catch (error) {
-          console.error("Error al eliminar el proveedor:", error);
+          console.error("Error al eliminar la categoria:", error);
           Swal.fire({
             title: "Error",
-            text: "No se pudo eliminar el proveedor.",
+            text: "No se pudo eliminar la categoria.",
             icon: "error",
           });
         }

@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
-
+import { useCategory } from "@/hooks/useCategory";
 import {
   FormItem,
   FormLabel,
@@ -8,16 +8,27 @@ import {
   FormMessage,
   Input,
 } from "@/components/ui";
-import { categories } from "@/data/categories";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 export const ProductForm = () => {
+  const { categories } = useCategory();
   const {
     register,
     formState: { errors },
     setValue,
+    watch,
   } = useFormContext();
   const [imageUrl, setImageUrl] = useState(null);
+
+  useEffect(() => {
+    console.log("Categorías cargadas:", categories);
+  }, [categories]);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -27,6 +38,8 @@ export const ProductForm = () => {
       setValue("imageUrl", file);
     }
   };
+
+  const selectedCategory = watch("category");
 
   return (
     <div className="grid grid-cols-3 gap-5 py-2">
@@ -68,42 +81,50 @@ export const ProductForm = () => {
               <FormMessage>{errors.codigo.message}</FormMessage>
             )}
           </FormItem>
+
           <FormItem>
-          <FormLabel htmlFor="isActive">Estado</FormLabel>
-          <FormControl>
-            <Select onValueChange={(value) => setValue("isActive", value === "true")}>
-              <SelectTrigger>
-                <SelectValue placeholder="Selecciona el estado" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="true">Activo</SelectItem>
-                <SelectItem value="false">Inactivo</SelectItem>
-              </SelectContent>
-            </Select>
-          </FormControl>
-          {errors.isActive && <FormMessage>{errors.isActive.message}</FormMessage>}
-        </FormItem>
-        </div>
-        <div className="flex flex-col gap-6">
-        <FormItem>
-            <FormLabel htmlFor="category">Categoría</FormLabel>
+            <FormLabel htmlFor="isActive">Estado</FormLabel>
             <FormControl>
               <Select
                 onValueChange={(value) =>
-                  setValue("category", value)
+                  setValue("isActive", value === "true")
                 }
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Seleccione una categoría" />
+                  <SelectValue placeholder="Selecciona el estado" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="true">Activo</SelectItem>
+                  <SelectItem value="false">Inactivo</SelectItem>
+                </SelectContent>
+              </Select>
+            </FormControl>
+            {errors.isActive && (
+              <FormMessage>{errors.isActive.message}</FormMessage>
+            )}
+          </FormItem>
+        </div>
+        <div className="flex flex-col gap-6">
+          <FormItem>
+            <FormLabel htmlFor="category">Categoría</FormLabel>
+            <FormControl>
+              <Select
+                onValueChange={(value) => setValue("category", Number(value))}
+                value={selectedCategory} 
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Seleccione una categoría">
+                    {selectedCategory
+                      ? categories.find((cat) => cat.id === selectedCategory)
+                          ?.name
+                      : "Seleccione una categoría"}
+                  </SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                   {categories
                     .filter((category) => category.isActive)
                     .map((category) => (
-                      <SelectItem
-                        key={category.id}
-                        value={category.name}
-                      >
+                      <SelectItem key={category.id} value={category.id}>
                         {category.name}
                       </SelectItem>
                     ))}
@@ -114,6 +135,7 @@ export const ProductForm = () => {
               <FormMessage>{errors.category.message}</FormMessage>
             )}
           </FormItem>
+
           <FormItem>
             <FormLabel htmlFor="price">Price</FormLabel>
             <FormControl>

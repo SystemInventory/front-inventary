@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { productFormSchema } from "@/lib/zod-validations/productFormSchema";
 import Swal from "sweetalert2";
 import { Toast } from "@/utils/Toast";
+import { createProduct, fillAllProducts, removeProduct } from "@/services/products.service";
 
 export const useProduct = (editData, setEditData) => {
   const product = useProductStore((state) => state.product);
@@ -15,9 +16,14 @@ export const useProduct = (editData, setEditData) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => {
+    const fetchProduct= async () => {
+      const data = await fillAllProducts();
+      if (data) {
+        useProductStore.setState({ product: data });
+      }
       setIsLoading(false);
-    }, 2000);
+    };
+    fetchProduct();
   }, []);
 
   const methods = useForm({
@@ -41,7 +47,7 @@ export const useProduct = (editData, setEditData) => {
   }, [editData, setValue]);
 
 
-  const onSubmit = (data) => {
+  const onSubmit = async(data) => {
     console.log("onSubmit called with data:", data); 
     if (editData) {
       const updatedProduct = {
@@ -56,7 +62,7 @@ export const useProduct = (editData, setEditData) => {
         title: "Producto actualizado con éxito",
       });
     } else {
-      const newProduct = { ...data, id: Date.now() };
+      const newProduct = await createProduct(data);
       addProduct(newProduct);
       console.log("Producto creado:", newProduct); 
       Toast.fire({
@@ -76,14 +82,24 @@ export const useProduct = (editData, setEditData) => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Sí, ¡elimínalo!",
-    }).then((result) => {
+    }).then(async(result) => {
       if (result.isConfirmed) {
-        deleteProduct(id);
-        Swal.fire({
-          title: "¡Eliminado!",
-          text: "El registro ha sido eliminado.",
-          icon: "success",
-        });
+        try {
+          await deleteProduct(id); 
+          removeProduct(id); 
+          Swal.fire({
+            title: "¡Eliminado!",
+            text: "El producto ha sido eliminado.",
+            icon: "success",
+          });
+        } catch (error) {
+          console.error("Error al eliminar el producto:", error);
+          Swal.fire({
+            title: "Error",
+            text: "No se pudo eliminar el producto.",
+            icon: "error",
+          });
+        }
       }
     });
   };

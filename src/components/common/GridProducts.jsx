@@ -1,7 +1,15 @@
-import { Badge, Button, Card, CardContent, CardFooter, CardHeader } from "../ui";
+import {
+  Badge,
+  Button,
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "../ui";
 import { SquarePen, Trash2 } from "lucide-react";
 
-export const GridProducts = ({ product, setEditData ,handleDelete}) => {
+export const GridProducts = ({ product, setEditData, handleDelete }) => {
+  const BASE_URL = "http://localhost:8080";
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
       {product.map((item) => (
@@ -11,17 +19,19 @@ export const GridProducts = ({ product, setEditData ,handleDelete}) => {
         >
           <CardHeader>
             <figure className="w-full border mx-auto">
-              {item.imageUrl && (
+              {item.photos && (
                 <img
                   src={
-                    typeof item.imageUrl === "string"
-                      ? item.imageUrl
-                      : item.imageUrl instanceof File ||
-                        item.imageUrl instanceof Blob
-                      ? URL.createObjectURL(item.imageUrl)
+                    item.photosImagePath
+                      ? `${BASE_URL}${item.photosImagePath}`
+                      : typeof item.photos === "string"
+                      ? item.photos
+                      : item.photos instanceof File ||
+                        item.photos instanceof Blob
+                      ? URL.createObjectURL(item.photos)
                       : ""
                   }
-                  alt={item.name}
+                  alt={item.nameProduct}
                   className="w-full h-48 object-cover"
                 />
               )}
@@ -31,11 +41,11 @@ export const GridProducts = ({ product, setEditData ,handleDelete}) => {
             <div className="flex justify-between">
               <p className="text-lg font-semibold">{item.nameProduct}</p>
               <span>
-                <Badge variant="outline">{item.category}</Badge>
+                <Badge variant="outline">{item.category.name}</Badge>
               </span>
             </div>
             <div className="flex justify-between">
-              <p className="text-xs text-gray-500">Codigo{item.codigo}</p>
+              <p className="text-xs text-gray-500">Codigo{item.code}</p>
               <Badge variant={item.isActive ? "success" : "destructive"}>
                 {item.isActive ? "Activo" : "Inactivo"}
               </Badge>

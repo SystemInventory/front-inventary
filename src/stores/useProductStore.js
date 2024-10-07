@@ -1,8 +1,7 @@
-import { product } from "@/data/product";
 import { create } from "zustand";
 
 export const useProductStore = create((set) => ({
-  product: product,
+  product: [],
   addProduct: (newProduct) =>
     set((state) => ({ product: [ newProduct,...state.product] })),
   editProduct: (updateProduct) =>

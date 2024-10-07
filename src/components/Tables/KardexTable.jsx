@@ -1,3 +1,4 @@
+import { usePersonnel } from "@/hooks/usePersonnel";
 import {
   Button,
   Table,
@@ -7,13 +8,12 @@ import {
   TableHeader,
   TableRow,
 } from "../ui";
-
-import { personal } from "@/data/personal";
 import { useSupplier } from "@/hooks/useSupplier";
 import { SquarePen, Trash2 } from "lucide-react";
 
 export const KardexTable = ({ kardex, setEditData, handleDelete }) => {
   const { suppliers } = useSupplier();
+  const {personal} = usePersonnel()
   const getSupplierName = (supplierId) => {
     const supplier = suppliers.find((supplier) => supplier.id === supplierId);
     return supplier ? supplier.name : "Desconocido";

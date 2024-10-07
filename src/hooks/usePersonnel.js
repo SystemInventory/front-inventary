@@ -82,10 +82,10 @@ export const usePersonnel = (editData, setEditData) => {
             icon: "success",
           });
         } catch (error) {
-          console.error("Error al eliminar el proveedor:", error);
+          console.error("Error al eliminar el personal:", error);
           Swal.fire({
             title: "Error",
-            text: "No se pudo eliminar el proveedor.",
+            text: "No se pudo eliminar el personal.",
             icon: "error",
           });
         }
