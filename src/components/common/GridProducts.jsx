@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   Badge,
   Button,
@@ -10,6 +11,10 @@ import { SquarePen, Trash2 } from "lucide-react";
 
 export const GridProducts = ({ product, setEditData, handleDelete }) => {
   const BASE_URL = "http://localhost:8080";
+  useEffect(() => {
+
+  }, [product]);
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
       {product.map((item) => (
@@ -19,16 +24,16 @@ export const GridProducts = ({ product, setEditData, handleDelete }) => {
         >
           <CardHeader>
             <figure className="w-full border mx-auto">
-              {item.photos && (
+              {item.photosImagePath && (
                 <img
                   src={
                     item.photosImagePath
                       ? `${BASE_URL}${item.photosImagePath}`
-                      : typeof item.photos === "string"
-                      ? item.photos
-                      : item.photos instanceof File ||
-                        item.photos instanceof Blob
-                      ? URL.createObjectURL(item.photos)
+                      : typeof item.photosImagePath === "string"
+                      ? item.photosImagePath
+                      : item.photosImagePath instanceof File ||
+                        item.photosImagePath instanceof Blob
+                      ? URL.createObjectURL(item.photosImagePath)
                       : ""
                   }
                   alt={item.nameProduct}

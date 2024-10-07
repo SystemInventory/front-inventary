@@ -16,7 +16,8 @@ import {
   SelectValue,
 } from "../ui/select";
 
-export const ProductForm = () => {
+export const ProductForm = ({ editData }) => {
+  const BASE_URL = "http://localhost:8080";
   const { categories } = useCategory();
   const {
     register,
@@ -25,21 +26,31 @@ export const ProductForm = () => {
     watch,
   } = useFormContext();
   const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
 
   useEffect(() => {
-    console.log("Categorías cargadas:", categories);
-  }, [categories]);
+    if (editData) {
+      setImagePreview(editData.photos ? `${BASE_URL}${editData.photos}` : null);
+    }
+  }, [editData]);
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
+    const file = e.target.files?.[0] || null;
+    setImage(file);
     if (file) {
-      const url = URL.createObjectURL(file);
-      setImage(url);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
       setValue("image", file);
+    } else {
+      setImagePreview(null);
     }
   };
 
-  const selectedCategory = watch("category");
+
+  // const selectedCategory = watch("categoryId");
 
   return (
     <div className="grid grid-cols-3 gap-5 py-2">
@@ -110,7 +121,6 @@ export const ProductForm = () => {
             <FormControl>
               <Select
                 onValueChange={(value) => setValue("categoryId", parseInt(value))}
-               
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Seleccione una categoría"/>                
@@ -177,9 +187,9 @@ export const ProductForm = () => {
         </div>
       </div>
       <div className="flex flex-col gap-6">
-        {image ? (
+        {imagePreview ? (
           <img
-            src={image}
+            src={imagePreview}
             alt="Selected"
             className="mt-2 w-full h-full object-cover"
           />

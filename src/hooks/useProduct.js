@@ -9,6 +9,7 @@ import {
   createProduct,
   fillAllProducts,
   removeProduct,
+  updateProduct,
 } from "@/services/products.service";
 
 export const useProduct = (editData, setEditData) => {
@@ -33,18 +34,18 @@ export const useProduct = (editData, setEditData) => {
   const methods = useForm({
     resolver: zodResolver(productFormSchema),
   });
-  const { handleSubmit, reset, setValue } = methods;
+  const { handleSubmit, reset, setValue, watch } = methods;
 
   useEffect(() => {
     if (editData) {
       setValue("code", editData.code);
       setValue("nameProduct", editData.nameProduct);
-      setValue("categoryId", editData.categoryId);
+      setValue("categoryId", editData.category.id); // Asegúrate de usar editData.category.id
       setValue("description", editData.description);
       setValue("price", editData.price);
       setValue("units", editData.units);
       setValue("isActive", editData.isActive);
-      setValue("image", editData.image);
+      setValue("image", editData.photos); // Asegúrate de usar editData.photos
       setIsDialogOpen(true);
     }
   }, [editData, setValue]);
@@ -61,18 +62,18 @@ export const useProduct = (editData, setEditData) => {
     formData.append("units", data.units.toString()); 
     formData.append("isActive", data.isActive.toString()); 
     
-    if (data.image) {
-      formData.append("image", data.image);
+    const imageFile = watch("image");
+    if (imageFile instanceof File) {
+      formData.append("image", imageFile);
+    } else if (editData && editData.photos) {
+      formData.append("photos", editData.photos); // Mantener la foto actual
     }
+  
   
     try {
       if (editData) {
-        const updatedProduct = {
-          ...data,
-          id: editData.id,
-          image: data.image || editData.image,
-        };
-        await editProduct(updatedProduct);
+        await updateProduct(editData.id, formData); // Llama a updateProduct
+        editProduct({ ...editData, ...data });
         setEditData(null);
         Toast.fire({
           icon: "success",
@@ -93,6 +94,7 @@ export const useProduct = (editData, setEditData) => {
       console.error("Error al crear el producto", error);
     }
   };
+
   const handleDelete = (id) => {
     Swal.fire({
       title: "¿Estás seguro?",
@@ -123,6 +125,7 @@ export const useProduct = (editData, setEditData) => {
       }
     });
   };
+
   return {
     setIsDialogOpen,
     isLoading,

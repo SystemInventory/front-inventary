@@ -44,4 +44,17 @@ export const removeProduct = async (id) => {
     throw error;
   }
 };
-export const updateProduct = async (id, product) => {};
+export const updateProduct = async (id, product) => {
+  try {
+    const { data } = await axios.put(`${API}/products/${id}`, product, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error("Error al actualizar el producto", product);
+    throw error;
+  }
+};
