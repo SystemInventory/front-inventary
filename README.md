@@ -1,4 +1,4 @@
-# Sistema de Inventario de Farmacia
+# Sistema de Inventario de Farmacia Java
 
 ### 🌐 Frontend:
 
