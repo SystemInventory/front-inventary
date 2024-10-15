@@ -3,12 +3,20 @@ import { Button, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle,
 import { Plus } from "lucide-react";
 import { FormProvider } from "react-hook-form";
 import { KardexForm } from "../Forms/KardexForm";
+import { exportToExcel } from "@/utils/exportToExcel";
 
 export const ButtonKardexForm = ({ editData, setEditData }) => {
-  const { isDialogOpen, setIsDialogOpen, methods, handleSubmit } = useKardex(editData, setEditData);
+  const { isDialogOpen, setIsDialogOpen, methods, handleSubmit, kardex } = useKardex(editData, setEditData);
+
+  const handleExport = () => {
+    exportToExcel(kardex);
+  };
 
   return (
     <div className="flex justify-end mb-4">
+      <Button variant="outline" onClick={handleExport}>
+        Exportar a Excel
+      </Button>
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
           <Button variant="outline" onClick={() => setIsDialogOpen(true)}>

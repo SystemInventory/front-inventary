@@ -39,6 +39,8 @@
     "sweetalert2-react-content": "^5.0.7",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
+    "xlsx": "^0.18.5",
+    "xlsx-style": "^0.8.13",
     "zod": "^3.23.8",
     "zustand": "^5.0.0-rc.2"
   },
