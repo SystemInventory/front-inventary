@@ -6,7 +6,6 @@ const supplierMap = suppliers.reduce((acc, supplier) => {
   acc[supplier.id] = supplier.name;
   return acc;
 }, {});
-
 const personalMap = personal.reduce((acc, person) => {
   acc[person.id] = person.name;
   return acc;
