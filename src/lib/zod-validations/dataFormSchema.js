@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const schema = z.object({
-  name: z.string().min(1, "Nombre es requerido"),
+  username: z.string().min(1, "Nombre es requerido"),
   dni: z.preprocess(
     (val) => String(val),
     z

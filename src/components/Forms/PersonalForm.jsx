@@ -17,9 +17,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
         <FormItem>
           <FormLabel htmlFor="name">Nombre</FormLabel>
           <FormControl>
-            <Input id="name" {...register("name")} className="input" />
+            <Input id="username" {...register("username")} className="input" />
           </FormControl>
-          {errors.name && <FormMessage>{errors.name.message}</FormMessage>}
+          {errors.username && <FormMessage>{errors.username.message}</FormMessage>}
         </FormItem>
         
         <FormItem>

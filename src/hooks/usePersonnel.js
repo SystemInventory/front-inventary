@@ -31,7 +31,7 @@ export const usePersonnel = (editData, setEditData) => {
 
   useEffect(() => {
     if (editData) {
-      setValue("name", editData.name);
+      setValue("username", editData.username);
       setValue("dni", editData.dni);
       setValue("email", editData.email);
       setValue("phone", editData.phone);

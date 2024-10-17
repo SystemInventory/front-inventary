@@ -26,7 +26,7 @@ export const TableInformation = ({ personal, setEditData,handleDelete }) => {
         <TableBody className="bg-white divide-y divide-gray-200">
           {personal.map((person) => (
             <TableRow key={person.id}>
-              <TableCell>{person.name}</TableCell>
+              <TableCell>{person.username}</TableCell>
               <TableCell>{person.dni}</TableCell>
               <TableCell>{person.email}</TableCell>
               <TableCell>{person.phone}</TableCell>
