@@ -1,20 +1,21 @@
+import axiosInstance from "@/api/axiosConfig";
 import { API } from "@/constants/API";
-import axios from "axios";
 
 export const fillAllPersonell = async () => {
   try {
-    const { data } = await axios.get(`${API}/users`);
-    console.log(data)
+    const { data } = await axiosInstance.get(`${API}/users`);
+    console.log(data);
     return data;
   } catch (error) {
     console.log("Error al traer a los personales", error);
     throw error;
   }
 };
+
 export const createPersonell = async (personell) => {
   try {
-    const { data } = await axios.post(`${API}/users`,personell);
-    console.log(data)
+    const { data } = await axiosInstance.post(`${API}/users`, personell);
+    console.log(data);
     return data;
   } catch (error) {
     console.log("Error al crear un nuevo personal", error);
@@ -24,20 +25,20 @@ export const createPersonell = async (personell) => {
 
 export const removePersonell = async (id) => {
   try {
-    await axios.delete(`${API}/users/${id}`)
+    await axiosInstance.delete(`${API}/users/${id}`);
   } catch (error) {
-    console.log("Error al eliminar el usuario con id : " , id)
+    console.log("Error al eliminar el usuario con id : ", id);
     throw error;
   }
+};
 
-}
-export const updatePersonell = async (id,personell) =>{
-     try {
-        const {data} = await axios.put(`${API}/users/${id}`,personell)
-       console.log(data)
-        return data;
-     } catch (error) {
-        console.error("Error al actualizar al personal",personell)
-        throw error;
-     }
-}
+export const updatePersonell = async (id, personell) => {
+  try {
+    const { data } = await axiosInstance.put(`${API}/users/${id}`, personell);
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error("Error al actualizar al personal", personell);
+    throw error;
+  }
+};

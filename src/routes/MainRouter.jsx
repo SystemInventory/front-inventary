@@ -1,32 +1,24 @@
-
 import { DashboardRoutes } from "./DashboardRoutes";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { useEffect, useState } from "react";
 import { AuthRoutes } from "./AuthRoutes";
-export const MainRouter = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    !!localStorage.getItem("authToken")
-  );
+import { useAuthStore } from "@/stores/useAuthStore";
 
-  useEffect(() => {
-    const token = localStorage.getItem("authToken");
-    setIsAuthenticated(!!token);
-  }, []);
+export const MainRouter = () => {
+  const status = useAuthStore((state) => state.status);
 
   return (
-    <>
-      <Routes>
-        {isAuthenticated ? (
-          <>
-            <Route path="/auth/*" element={<AuthRoutes />} />
-            <Route path="/*" element={<Navigate to="/auth" />} />
-          </>
-        ) : (
-          <>
-            <Route path="/*" element={<DashboardRoutes />} />
-          </>
-        )}
-      </Routes>
-    </>
+    <Routes>
+      {status === "authenticated" ? (
+        <>
+          <Route path="/*" element={<DashboardRoutes />} />
+          <Route path="/auth/*" element={<Navigate to="/" />} />
+        </>
+      ) : (
+        <>
+          <Route path="/auth/*" element={<AuthRoutes />} />
+          <Route path="/*" element={<Navigate to="/auth/login" />} />
+        </>
+      )}
+    </Routes>
   );
 };

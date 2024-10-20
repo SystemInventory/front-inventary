@@ -9,5 +9,14 @@ export default defineConfig({
       // eslint-disable-next-line no-undef
       '@': path.resolve(__dirname, 'src/')
     }
-  }
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8080', // Cambia esto a la URL de tu backend
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
 })

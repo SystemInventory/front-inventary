@@ -1,9 +1,10 @@
+import axiosInstance from "@/api/axiosConfig";
 import { API } from "@/constants/API"; 
 import axios from "axios";
 
 export const fillAllSuppliers = async () => {
   try {
-    const { data } = await axios.get(`${API}/suppliers`);
+    const { data } = await axiosInstance.get('/suppliers');
     return data;
   } catch (error) {
     console.error("Error al traer los suppliers de la base de datos", error);

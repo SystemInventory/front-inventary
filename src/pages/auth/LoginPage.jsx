@@ -1,10 +1,13 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import { Button, Form, FormItem, Input } from "@/components/ui";
+import { Button, FormItem, Input } from "@/components/ui";
 import { AuthLayout } from "@/layout/AuthLayout";
+import { useLogin } from "@/hooks/useLogin"; // Importa el hook useLogin
+import { getTokenFromSessionStorage } from "@/utils/getToken"; // Importa la función getTokenFromSessionStorage
+import { useAuthStore } from "@/stores/useAuthStore";
+import axiosInstance from "@/api/axiosConfig";
 
 const MySwal = withReactContent(Swal);
 
@@ -12,20 +15,33 @@ export const LoginPage = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm();
-  const [showPassword, setShowPassword] = useState(false);
+    errors,
+    showPassword,
+    handleClickShowPassword,
+  } = useLogin();
+  const setToken = useAuthStore((state) => state.setToken); // Obtén la acción setToken
 
-  const onSubmit = (data) => {
-    if (data.password !== "correct_password") {
+  useEffect(() => {
+    const token = getTokenFromSessionStorage();
+    console.log("Token:", token); // Muestra el token en la consola
+    if (token) {
+      setToken(token); // Establece el token en authStore
+    }
+  }, [setToken]);
+
+  const onSubmit = async (data) => {
+    try {
+      const response = await axiosInstance.post('/auth/login', data);
+      const { token } = response.data;
+      setToken(token);
+      sessionStorage.setItem('authToken', token);
+      window.location.href = '/'; // Redirige al usuario después de iniciar sesión
+    } catch (error) {
       MySwal.fire({
-        title: "Error",
-        text: "Contraseña incorrecta",
-        icon: "error",
-        confirmButtonText: "OK",
+        icon: 'error',
+        title: 'Error',
+        text: 'Error al iniciar sesión',
       });
-    } else {
-      // Lógica para el inicio de sesión exitoso
     }
   };
 
@@ -35,9 +51,9 @@ export const LoginPage = () => {
         <h1 className="text-center font-bold text-2xl">
           Sistema de Inventario Farmaceutico
         </h1>
-        <Form
-          onSubmit={handleSubmit(onSubmit)}
-          className="bg-white p-8 rounded-lg shadow-md "
+        <form
+          onSubmit={handleSubmit(onSubmit)} // Asegúrate de que handleSubmit se esté pasando correctamente
+          className="bg-white p-8 rounded-lg shadow-md"
         >
           <FormItem>
             <label
@@ -72,7 +88,7 @@ export const LoginPage = () => {
                 className="block w-full bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               />
               <span
-                onClick={() => setShowPassword(!showPassword)}
+                onClick={handleClickShowPassword} // Usa handleClickShowPassword aquí
                 className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500 hover:text-gray-700"
               >
                 {showPassword ? <EyeOff /> : <Eye />}
@@ -84,10 +100,10 @@ export const LoginPage = () => {
               </span>
             )}
           </FormItem>
-          <Button type="submit" className=" w-full  text-white py-2 rounded-lg">
+          <Button type="submit" className="w-full text-white py-2 rounded-lg">
             Iniciar sesión
           </Button>
-        </Form>
+        </form>
       </div>
     </AuthLayout>
   );
