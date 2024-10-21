@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const kardexFormSchema = z.object({
   productName: z.string().min(1, "El nombre del producto es requerido"),
-  tipoTransacction: z.enum(["ENTRADA", "SALIDA"], "El tipo de transacción es requerido"),
+  tipoTransacction: z.enum(["ENTRADA", "SALIDA","CADUCIDAD"], "El tipo de transacción es requerido"),
   count: z.number().min(1, "La cantidad es requerida"),
   description: z.string().min(1, "La descripción es requerida"),
   user: z.object({

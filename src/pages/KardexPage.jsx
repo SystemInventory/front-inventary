@@ -6,6 +6,7 @@ import { KardexTable } from "@/components/Tables/KardexTable";
 import { headers } from "@/utils/headers/getHeaderKardex";
 import { ContainerLayout } from "@/layout/ContainerLayout";
 import { Button } from "@/components/ui";
+import { FileChartColumnIncreasing } from "lucide-react";
 
 
 export const KardexPage = () => {
@@ -16,7 +17,7 @@ export const KardexPage = () => {
     <ContainerLayout>
       <div className="flex  text-center">
       <Button variant="outline" onClick={handleExport}>
-        Exportar a Excel
+        Exportar a Excel <FileChartColumnIncreasing />
       </Button>
         <ButtonKardexForm editData={editData} setEditData={setEditData} />
       </div>
