@@ -34,9 +34,9 @@ export const KardexTable = ({ kardex, setEditData, handleDelete }) => {
               <TableCell>{item.tipoTransacction}</TableCell>
               <TableCell>{item.count}</TableCell>
               <TableCell>{item.description}</TableCell>
-              <TableCell>{item.supplier.name}</TableCell>
-              <TableCell>{item.expirationDate}</TableCell>
               <TableCell>{item.user.name}</TableCell>
+              <TableCell>{item.expirationDate}</TableCell>
+              <TableCell>{item.supplier.name}</TableCell>
               <TableCell>
                 <Button variant="outline" onClick={() => setEditData(item)}>
                   <SquarePen />

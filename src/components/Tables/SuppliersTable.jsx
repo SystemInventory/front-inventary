@@ -1,3 +1,4 @@
+import { useKardex } from "@/hooks/useKardex";
 import {
   Button,
   Table,
@@ -8,8 +9,24 @@ import {
   TableRow,
 } from "../ui";
 import { SquarePen, Trash2 } from "lucide-react";
+import Swal from "sweetalert2";
 
 export const SuppliersTable = ({ suppliers, setEditData,handleDelete }) => {
+  const { kardex } = useKardex();
+
+  const handleDeleteWithCheck = (id) => {
+    const isSupplierInKardex = kardex.some((item) => item.supplier.id === id);
+    if (isSupplierInKardex) {
+      Swal.fire({
+        title: "Error",
+        text: "No se puede eliminar este proveedor ya que está siendo utilizado en el Kardex.",
+        icon: "error",
+      });
+    } else {
+      handleDelete(id);
+    }
+  };
+
   return (
     <div className="overflow-hidden">
       <Table className="min-w-full divide-y divide-gray-200">
@@ -38,7 +55,7 @@ export const SuppliersTable = ({ suppliers, setEditData,handleDelete }) => {
                 </Button>
                 <Button
                   variant="outline"
-                  onClick={() => handleDelete(suppier.id)}
+                  onClick={() => handleDeleteWithCheck(suppier.id)}
                 >
                   <Trash2 color="red" />
                   <span className="hidden sm:inline">Eliminar</span>
