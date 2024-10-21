@@ -1,8 +1,8 @@
-import { kardex } from "@/data/kardex";
+
 import { create } from "zustand";
 
 export const useKardexStore = create((set) => ({
-  kardex: kardex,
+  kardex: [],
   addKardex: (newKardex) =>
     set((state) => ({ kardex: [newKardex,...state.kardex ] })), 
   editKardex: (updateKardex) =>

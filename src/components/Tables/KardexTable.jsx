@@ -1,4 +1,3 @@
-import { usePersonnel } from "@/hooks/usePersonnel";
 import {
   Button,
   Table,
@@ -8,22 +7,9 @@ import {
   TableHeader,
   TableRow,
 } from "../ui";
-import { useSupplier } from "@/hooks/useSupplier";
 import { SquarePen, Trash2 } from "lucide-react";
 
 export const KardexTable = ({ kardex, setEditData, handleDelete }) => {
-  const { suppliers } = useSupplier();
-  const {personal} = usePersonnel()
-  const getSupplierName = (supplierId) => {
-    const supplier = suppliers.find((supplier) => supplier.id === supplierId);
-    return supplier ? supplier.name : "Desconocido";
-  };
-
-  const getUserName = (userId) => {
-    const user = personal.find((user) => user.id === userId);
-    return user ? user.name : "Desconocido";
-  };
-
   return (
     <div className="overflow-hidden">
       <Table>
@@ -44,13 +30,13 @@ export const KardexTable = ({ kardex, setEditData, handleDelete }) => {
           {kardex.map((item) => (
             <TableRow key={item.id}>
               <TableCell>{item.dateOperation}</TableCell>
-              <TableCell>{item.product}</TableCell>
+              <TableCell>{item.productName}</TableCell>
               <TableCell>{item.tipoTransacction}</TableCell>
               <TableCell>{item.count}</TableCell>
               <TableCell>{item.description}</TableCell>
-              <TableCell>{getUserName(item.userId)}</TableCell>
+              <TableCell>{item.user.name}</TableCell>
               <TableCell>{item.expirationDate}</TableCell>
-              <TableCell>{getSupplierName(item.supplierId)}</TableCell>
+              <TableCell>{item.supplier.name}</TableCell>
               <TableCell>
                 <Button variant="outline" onClick={() => setEditData(item)}>
                   <SquarePen />

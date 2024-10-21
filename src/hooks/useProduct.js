@@ -40,12 +40,12 @@ export const useProduct = (editData, setEditData) => {
     if (editData) {
       setValue("code", editData.code);
       setValue("nameProduct", editData.nameProduct);
-      setValue("categoryId", editData.category.id); // Asegúrate de usar editData.category.id
+      setValue("categoryId", editData.category.id); 
       setValue("description", editData.description);
       setValue("price", editData.price);
       setValue("units", editData.units);
       setValue("isActive", editData.isActive);
-      setValue("image", editData.photos); // Asegúrate de usar editData.photos
+      setValue("image", editData.photos); 
       setIsDialogOpen(true);
     }
   }, [editData, setValue]);
@@ -66,13 +66,13 @@ export const useProduct = (editData, setEditData) => {
     if (imageFile instanceof File) {
       formData.append("image", imageFile);
     } else if (editData && editData.photos) {
-      formData.append("photos", editData.photos); // Mantener la foto actual
+      formData.append("photos", editData.photos); 
     }
   
   
     try {
       if (editData) {
-        await updateProduct(editData.id, formData); // Llama a updateProduct
+        await updateProduct(editData.id, formData); 
         editProduct({ ...editData, ...data });
         setEditData(null);
         Toast.fire({

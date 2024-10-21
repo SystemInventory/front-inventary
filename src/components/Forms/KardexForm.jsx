@@ -1,7 +1,5 @@
 import { useFormContext } from "react-hook-form";
 import { FormControl, FormItem, FormLabel, FormMessage, Input } from "../ui";
-
-import { product } from "@/data/product";
 import {
   Select,
   SelectContent,
@@ -11,10 +9,12 @@ import {
 } from "../ui/select";
 import { useSupplier } from "@/hooks/useSupplier";
 import { usePersonnel } from "@/hooks/usePersonnel";
+import { useProduct } from "@/hooks/useProduct";
 
 export const KardexForm = () => {
-  const {suppliers} = useSupplier()
-  const {personal} = usePersonnel()
+  const { product } = useProduct();
+  const { suppliers } = useSupplier();
+  const { personal } = usePersonnel();
   const {
     register,
     formState: { errors },
@@ -25,9 +25,14 @@ export const KardexForm = () => {
     <div className="grid grid-cols-2 gap-10 py-4">
       <div className="flex flex-col gap-4">
         <FormItem>
-          <FormLabel htmlFor="product">Producto</FormLabel>
+          <FormLabel htmlFor="productName">Producto</FormLabel>
           <FormControl>
-            <Select onValueChange={(value) => setValue("product", value)}>
+            <Select
+              onValueChange={(value) => {
+                const selectedProduct = product.find((item) => item.id === parseInt(value, 10));
+                setValue("productName", selectedProduct.nameProduct);
+              }}
+            >
               <SelectTrigger>
                 <SelectValue placeholder="Seleccione un producto" />
               </SelectTrigger>
@@ -35,15 +40,15 @@ export const KardexForm = () => {
                 {product
                   .filter((item) => item.isActive)
                   .map((item) => (
-                    <SelectItem key={item.id} value={item.nameProduct}>
+                    <SelectItem key={item.id} value={item.id.toString()}>
                       {item.nameProduct}
                     </SelectItem>
                   ))}
               </SelectContent>
             </Select>
           </FormControl>
-          {errors.product && (
-            <FormMessage>{errors.product.message}</FormMessage>
+          {errors.productName && (
+            <FormMessage>{errors.productName.message}</FormMessage>
           )}
         </FormItem>
         <FormItem>
@@ -93,10 +98,12 @@ export const KardexForm = () => {
         </FormItem>
       </div>
       <div className="flex flex-col gap-4">
-      <FormItem>
+        <FormItem>
           <FormLabel htmlFor="tipoTransacction">Tipo de Transacción</FormLabel>
           <FormControl>
-            <Select onValueChange={(value) => setValue("tipoTransacction", value)}>
+            <Select
+              onValueChange={(value) => setValue("tipoTransacction", value)}
+            >
               <SelectTrigger>
                 <SelectValue placeholder="Seleccione un Tipo " />
               </SelectTrigger>
@@ -117,17 +124,24 @@ export const KardexForm = () => {
             <Input
               id="dateOperation"
               type="date"
-              {...register("dateOperation", { required: "Fecha operacion es requerida" })}
+              {...register("dateOperation", {
+                required: "Fecha operacion es requerida",
+              })}
               className="input"
             />
           </FormControl>
-          {errors.dateOperation && <FormMessage>{errors.dateOperation.message}</FormMessage>}
+          {errors.dateOperation && (
+            <FormMessage>{errors.dateOperation.message}</FormMessage> 
+          )}
         </FormItem>
         <FormItem>
-          <FormLabel htmlFor="userId">Usuario</FormLabel>
+          <FormLabel htmlFor="user">Usuario</FormLabel>
           <FormControl>
             <Select
-              onValueChange={(value) => setValue("userId", parseInt(value, 10))}
+              onValueChange={(value) => {
+                const selectedUser = personal.find((user) => user.id === parseInt(value, 10));
+                setValue("user", selectedUser); // Almacena el objeto completo
+              }}
             >
               <SelectTrigger>
                 <SelectValue placeholder="Seleccione un usuario" />
@@ -143,15 +157,18 @@ export const KardexForm = () => {
               </SelectContent>
             </Select>
           </FormControl>
-          {errors.userId && <FormMessage>{errors.userId.message}</FormMessage>}
+          {errors.user && (
+            <FormMessage>{errors.user.message}</FormMessage>
+          )}
         </FormItem>
         <FormItem>
-          <FormLabel htmlFor="supplierId">Proveedor</FormLabel>
+          <FormLabel htmlFor="supplier">Proveedor</FormLabel>
           <FormControl>
             <Select
-              onValueChange={(value) =>
-                setValue("supplierId", parseInt(value, 10))
-              }
+              onValueChange={(value) => {
+                const selectedSupplier = suppliers.find((supplier) => supplier.id === parseInt(value, 10));
+                setValue("supplier", selectedSupplier); // Almacena el objeto completo
+              }}
             >
               <SelectTrigger>
                 <SelectValue placeholder="Seleccione un proveedor" />
@@ -160,18 +177,15 @@ export const KardexForm = () => {
                 {suppliers
                   .filter((supplier) => supplier.isActive)
                   .map((supplier) => (
-                    <SelectItem
-                      key={supplier.id}
-                      value={supplier.id.toString()}
-                    >
+                    <SelectItem key={supplier.id} value={supplier.id.toString()}>
                       {supplier.name}
                     </SelectItem>
                   ))}
               </SelectContent>
             </Select>
           </FormControl>
-          {errors.supplierId && (
-            <FormMessage>{errors.supplierId.message}</FormMessage>
+          {errors.supplier && (
+            <FormMessage>{errors.supplier.message}</FormMessage>
           )}
         </FormItem>
       </div>

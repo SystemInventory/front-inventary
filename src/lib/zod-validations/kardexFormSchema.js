@@ -1,19 +1,26 @@
 import { z } from "zod";
 
 export const kardexFormSchema = z.object({
-  id: z.number().int().optional(),
-  product: z.string().min(1, "Producto es requerido"),
-  tipoTransacction: z.enum(["ENTRADA", "SALIDA", "CADUCIDAD"]),
-  count: z.number().int().positive(),
-  description: z.string().min(1, "Descripción es requerida"),
-  userId: z.number().int(),
-  expirationDate: z.string().refine(
-    (date) => !isNaN(Date.parse(date)),
-    { message: "Formato de fecha inválido" }
-  ),
-  supplierId: z.number().int(),
-  dateOperation: z.string().refine(
-    (date) => !isNaN(Date.parse(date)),
-    { message: "Formato de fecha inválido" }
-  ),
+  productName: z.string().min(1, "El nombre del producto es requerido"),
+  tipoTransacction: z.enum(["ENTRADA", "SALIDA"], "El tipo de transacción es requerido"),
+  count: z.number().min(1, "La cantidad es requerida"),
+  description: z.string().min(1, "La descripción es requerida"),
+  user: z.object({
+    id: z.number(),
+    name: z.string(),
+    dni: z.string(),
+    email: z.string(),
+    phone: z.string(),
+    isActive: z.boolean(),
+  }),
+  supplier: z.object({
+    id: z.number(),
+    name: z.string(),
+    email: z.string(),
+    isActive: z.boolean(),
+    phone: z.string(),
+    dni: z.string(),
+  }),
+  expirationDate: z.string().min(1, "La fecha de expiración es requerida"),
+  dateOperation: z.string().min(1, "La fecha de operación es requerida"),
 });

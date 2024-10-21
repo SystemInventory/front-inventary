@@ -12,7 +12,7 @@ export const SuppliersPage = () => {
   const { suppliers, isLoading, handleDelete } = useSupplier();
   const [editData, setEditData] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  console.log("Datos de proveedores en SuppliersPage:", suppliers);
+  const { itemFilter } = getFilter(suppliers, searchTerm);
   return (
     <ContainerLayout>
       <div className="flex justify-between ">
@@ -24,7 +24,7 @@ export const SuppliersPage = () => {
         <TableSkeleton headers={headers} />
       ) : (
         <SuppliersTable
-          suppliers={suppliers}
+          suppliers={searchTerm ? itemFilter : suppliers}
           setEditData={setEditData}
           handleDelete={handleDelete}
         />

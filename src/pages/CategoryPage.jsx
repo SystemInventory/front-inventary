@@ -9,9 +9,10 @@ import { headers } from "@/utils/headers/getHeaderCategory";
 import { useState } from "react";
 
 export const CategoryPage = () => {
-  const { categories, isLoading,handleDelete } = useCategory();
+  const { categories, isLoading, handleDelete } = useCategory();
   const [editData, setEditData] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const { itemFilter } = getFilter(categories, searchTerm);
 
   return (
     <ContainerLayout>
@@ -23,7 +24,11 @@ export const CategoryPage = () => {
       {isLoading ? (
         <TableSkeleton headers={headers} />
       ) : (
-        <CategoriesTable categories={categories} setEditData={setEditData} handleDelete={handleDelete} />
+        <CategoriesTable
+          categories={searchTerm ? itemFilter : categories}
+          setEditData={setEditData}
+          handleDelete={handleDelete}
+        />
       )}
     </ContainerLayout>
   );

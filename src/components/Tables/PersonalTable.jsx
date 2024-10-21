@@ -8,8 +8,24 @@ import {
   TableHeader,
   TableRow,
 } from "../ui";
+import { useKardex } from "@/hooks/useKardex";
+import Swal from "sweetalert2";
 
 export const TableInformation = ({ personal, setEditData,handleDelete }) => {
+  const { kardex } = useKardex();
+
+  const handleDeleteWithCheck = (id) => {
+    const isUserInKardex = kardex.some((item) => item.user.id === id);
+    if (isUserInKardex) {
+      Swal.fire({
+        title: "Error",
+        text: "No se puede eliminar este usuario ya que está siendo utilizado en el Kardex.",
+        icon: "error",
+      });
+    } else {
+      handleDelete(id);
+    }
+  };
   return (
     <div className="overflow-x-auto">
       <Table className="min-w-full divide-y divide-gray-200">
@@ -42,7 +58,7 @@ export const TableInformation = ({ personal, setEditData,handleDelete }) => {
                 </Button>
                 <Button
                   variant="outline"
-                  onClick={() => handleDelete(person.id)}
+                  onClick={() => handleDeleteWithCheck(person.id)}
                 >
                   <Trash2 color="red" />
                   <span className="hidden sm:inline">Eliminar</span>

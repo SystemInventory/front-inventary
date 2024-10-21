@@ -13,7 +13,6 @@ export const PersonnelPage = () => {
   const [editData, setEditData] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const { itemFilter } = getFilter(personal, searchTerm);
-
   return (
     <ContainerLayout>
       <div className="flex justify-between text-center">
