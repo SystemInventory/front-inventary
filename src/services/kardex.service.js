@@ -40,3 +40,9 @@ export const updateKardex = async (id, kardex) => {
     throw error;
   }
 };
+export const generateReport = async () => {
+  const response = await axios.get(`${API}/kardex/report`, {
+    responseType: 'blob'
+  });
+  return response.data;
+};

@@ -1,12 +1,18 @@
 import { kardexFormSchema } from "@/lib/zod-validations/kardexFormSchema";
-import { createKardex, fillAllKardex, removeKardex, updateKardex } from "@/services/kardex.service";
+import {
+  createKardex,
+  fillAllKardex,
+  generateReport,
+  removeKardex,
+  updateKardex,
+} from "@/services/kardex.service";
 import { useKardexStore } from "@/stores/useKardexStore";
 import { Toast } from "@/utils/Toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-
+import { saveAs } from 'file-saver';
 export const useKardex = (editData, setEditData) => {
   const kardex = useKardexStore((state) => state.kardex);
   const addKardex = useKardexStore((state) => state.addKardex);
@@ -22,7 +28,7 @@ export const useKardex = (editData, setEditData) => {
         useKardexStore.setState({ kardex: data });
       }
       setIsLoading(false);
-    }
+    };
     fetchKardex();
   }, []);
 
@@ -49,11 +55,11 @@ export const useKardex = (editData, setEditData) => {
   const onSubmit = async (data) => {
     const kardexData = {
       ...data,
-      productName: data.productName, 
+      productName: data.productName,
       user: data.user,
       supplier: data.supplier,
     };
-  
+
     try {
       if (editData) {
         const updatedKardex = await updateKardex(editData.id, kardexData);
@@ -81,7 +87,7 @@ export const useKardex = (editData, setEditData) => {
       });
     }
   };
-  
+
   const handleDelete = (id) => {
     Swal.fire({
       title: "¿Estás seguro?",
@@ -94,8 +100,8 @@ export const useKardex = (editData, setEditData) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await deleteKardex(id); 
-          removeKardex(id); 
+          await deleteKardex(id);
+          removeKardex(id);
           Swal.fire({
             title: "¡Eliminado!",
             text: "El kardex ha sido eliminado.",
@@ -112,7 +118,10 @@ export const useKardex = (editData, setEditData) => {
       }
     });
   };
-
+  const handleExport = async () => {
+    const reportBlob = await generateReport();
+    saveAs(reportBlob, "empresary.xls");
+  };
   return {
     kardex,
     addKardex,
@@ -124,5 +133,6 @@ export const useKardex = (editData, setEditData) => {
     methods,
     onSubmit,
     handleSubmit: handleSubmit(onSubmit),
+    handleExport,
   };
 };
