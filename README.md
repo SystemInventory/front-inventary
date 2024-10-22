@@ -11,3 +11,5 @@
 <img src='./public/zustand.png' style="width: 50px; height: 50px; margin: 10px;">
 
   </div>
+ <img src="./public/image1.png" href="Image demo1">
+ <img src="./public/image2.png" href="Image demo2">
