@@ -7,9 +7,27 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/index.js";
+import { useProduct } from "@/hooks/useProduct";
 import { SquarePen, Trash2 } from "lucide-react";
+import Swal from "sweetalert2";
 
 export const CategoriesTable = ({ setEditData, categories, handleDelete }) => {
+  const{product} = useProduct();
+
+  const handleDeleteWithCheck = (id) => {
+    const isProductInCategory = product.some((item) => item.category.id === id);
+    if (isProductInCategory) {
+      Swal.fire({
+        title: "Error",
+        text: "No se puede eliminar esta categoria ya que está siendo utilizada en un producto.",
+        icon: "error",
+      });
+    } else {
+      handleDelete(id);
+    }
+  }
+
+  
   return (
     <div className="overflow-hidden">
       <Table className="min-w-full divide-y divide-gray-200">
@@ -34,7 +52,7 @@ export const CategoriesTable = ({ setEditData, categories, handleDelete }) => {
                 </Button>
                 <Button
                   variant="outline"
-                  onClick={() => handleDelete(category.id)}
+                  onClick={() => handleDeleteWithCheck(category.id)}
                 >
                   <Trash2 color="red" />
                   <span className="hidden sm:inline">Eliminar</span>
